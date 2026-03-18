@@ -1,4 +1,5 @@
 import "./SavedQuestionCard.css";
+import PropTypes from "prop-types";
 
 function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
   return (
@@ -24,5 +25,20 @@ function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
     </div>
   );
 }
+
+SavedQuestionCard.propTypes = {
+  question: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    questionId: PropTypes.string.isRequired,
+    questionText: PropTypes.string.isRequired,
+    topic: PropTypes.string,
+    difficulty: PropTypes.string,
+    source: PropTypes.string,
+    isReviewed: PropTypes.bool,
+    personalNote: PropTypes.string,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onMarkReviewed: PropTypes.func.isRequired,
+};
 
 export default SavedQuestionCard;
