@@ -1,5 +1,8 @@
+import SavedQuestionsPage from "./pages/SavedQuestionsPage/SavedQuestionsPage";
+import "./App.css";
+
 function App() {
-  return <div>EasyPass DMV Practice Tracker</div>;
+  return <SavedQuestionsPage />;
 }
 
 export default App;
