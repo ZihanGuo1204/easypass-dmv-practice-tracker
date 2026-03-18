@@ -39,3 +39,19 @@ export async function markAsReviewed(id) {
 
   return await response.json();
 }
+
+export async function createSavedQuestion(newQuestion) {
+  const response = await fetch("/api/saved-questions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newQuestion),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create saved question");
+  }
+
+  return await response.json();
+}
