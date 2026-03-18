@@ -1,33 +1,38 @@
-import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ currentPage, onNavigate }) {
-  return (
-    <nav className="navbar">
-      <div className="navbar-title">EasyPass DMV Practice Tracker</div>
+function Navbar() {
+  const location = useLocation();
 
-      <div className="navbar-links">
-        <button
-          className={currentPage === "saved" ? "nav-button active" : "nav-button"}
-          onClick={() => onNavigate("saved")}
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-4">
+      <span className="navbar-brand">EasyPass DMV Practice Tracker</span>
+
+      <div className="ms-auto d-flex gap-2">
+        <Link
+          to="/"
+          className={
+            location.pathname === "/"
+              ? "btn btn-light"
+              : "btn btn-outline-light"
+          }
         >
           Saved Questions
-        </button>
+        </Link>
 
-        <button
-          className={currentPage === "mistakes" ? "nav-button active" : "nav-button"}
-          onClick={() => onNavigate("mistakes")}
+        <Link
+          to="/mistakes"
+          className={
+            location.pathname === "/mistakes"
+              ? "btn btn-warning"
+              : "btn btn-outline-light"
+          }
         >
           Mistake Notebook
-        </button>
+        </Link>
       </div>
     </nav>
   );
 }
-
-Navbar.propTypes = {
-  currentPage: PropTypes.string.isRequired,
-  onNavigate: PropTypes.func.isRequired,
-};
 
 export default Navbar;

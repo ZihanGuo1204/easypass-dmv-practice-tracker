@@ -69,23 +69,27 @@ function SavedQuestionsPage() {
 
   // Render Page
   return (
-    <div className="saved-questions-page">
-      <h1>Saved Questions</h1>
+  <div className="container mt-4">
+    <div className="row justify-content-center">
+      <div className="col-md-8">
+        <h1 className="text-center mb-4">Saved Questions</h1>
 
-      {savedQuestions.length === 0 ? (
-        <p>No saved questions found.</p>
-      ) : (
-        savedQuestions.map((question) => (
-          <SavedQuestionCard
-            key={question._id}
-            question={question}
-            onDelete={handleDelete}
-            onMarkReviewed={handleMarkReviewed}
-          />
-        ))
-      )}
+        {savedQuestions.length === 0 ? (
+          <p className="text-center">No saved questions found.</p>
+        ) : (
+          savedQuestions.map((question) => (
+            <SavedQuestionCard
+              key={question._id}
+              question={question}
+              onDelete={handleDelete}
+              onMarkReviewed={handleMarkReviewed}
+            />
+          ))
+        )}
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default SavedQuestionsPage;

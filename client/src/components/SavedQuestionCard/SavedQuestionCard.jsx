@@ -1,24 +1,43 @@
-import "./SavedQuestionCard.css";
 import PropTypes from "prop-types";
+import "./SavedQuestionCard.css";
 
 function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
   return (
-    <div className="saved-question-card">
-      <h3>{question.questionText}</h3>
+    <div
+      className="card shadow-sm mb-3"
+      style={{ maxWidth: "600px", margin: "0 auto" }}
+    >
+      <div className="card-body">
+        <h5 className="card-title">{question.questionText}</h5>
 
-      <p><strong>Question ID:</strong> {question.questionId}</p>
-      <p><strong>Topic:</strong> {question.topic}</p>
-      <p><strong>Difficulty:</strong> {question.difficulty}</p>
-      <p><strong>Source:</strong> {question.source}</p>
-      <p><strong>Reviewed:</strong> {question.isReviewed ? "Yes" : "No"}</p>
-      <p><strong>Note:</strong> {question.personalNote || "No note yet"}</p>
+        <p className="card-text">
+          <strong>Question ID:</strong> {question.questionId}
+          <br />
+          <strong>Topic:</strong> {question.topic}
+          <br />
+          <strong>Difficulty:</strong> {question.difficulty}
+          <br />
+          <strong>Source:</strong> {question.source}
+          <br />
+          <strong>Reviewed:</strong>{" "}
+          <span className={question.isReviewed ? "text-success" : "text-danger"}>
+            {question.isReviewed ? "Yes" : "No"}
+          </span>
+          <br />
+          <strong>Note:</strong> {question.personalNote || "No note yet"}
+        </p>
 
-      <div className="button-group">
-        <button onClick={() => onMarkReviewed(question._id)}>
+        <button
+          className="btn btn-success me-2"
+          onClick={() => onMarkReviewed(question._id)}
+        >
           Mark as Reviewed
         </button>
 
-        <button className="delete-btn" onClick={() => onDelete(question._id)}>
+        <button
+          className="btn btn-danger"
+          onClick={() => onDelete(question._id)}
+        >
           Delete
         </button>
       </div>

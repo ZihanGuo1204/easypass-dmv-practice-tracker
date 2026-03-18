@@ -53,29 +53,33 @@ function MistakeNotebookPage() {
   }
 
   if (loading) {
-    return <div className="mistake-notebook-page">Loading mistake notebook...</div>;
+    return <div className="container mt-4">Loading mistake notebook...</div>;
   }
 
   if (errorMessage) {
-    return <div className="mistake-notebook-page error-text">{errorMessage}</div>;
+    return <div className="container mt-4 error-text">{errorMessage}</div>;
   }
 
   return (
-    <div className="mistake-notebook-page">
-      <h1>Mistake Notebook</h1>
+    <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <h1 className="text-center mb-4">Mistake Notebook</h1>
 
-      {mistakeQuestions.length === 0 ? (
-        <p>No mistake questions found.</p>
-      ) : (
-        mistakeQuestions.map((question) => (
-          <SavedQuestionCard
-            key={question._id}
-            question={question}
-            onDelete={handleDelete}
-            onMarkReviewed={handleMarkReviewed}
-          />
-        ))
-      )}
+          {mistakeQuestions.length === 0 ? (
+            <p className="text-center">No mistake questions found.</p>
+          ) : (
+            mistakeQuestions.map((question) => (
+              <SavedQuestionCard
+                key={question._id}
+                question={question}
+                onDelete={handleDelete}
+                onMarkReviewed={handleMarkReviewed}
+              />
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }
