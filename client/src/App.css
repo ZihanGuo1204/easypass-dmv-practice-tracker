@@ -8,3 +8,24 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.app-nav {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-nav button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2d7ff9;
+  color: white;
+  cursor: pointer;
+}
+
+.app-nav button:hover {
+  opacity: 0.9;
+}
