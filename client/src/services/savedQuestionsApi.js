@@ -1,7 +1,7 @@
-import BASE_URL from "./config";
+import { API_BASE } from "./config";
 
 export async function getSavedQuestions() {
-  const response = await fetch(`${BASE_URL}/api/saved-questions`);
+  const response = await fetch(`${API_BASE}/api/saved-questions`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch saved questions");
@@ -11,7 +11,7 @@ export async function getSavedQuestions() {
 }
 
 export async function createSavedQuestion(newQuestion) {
-  const response = await fetch(`${BASE_URL}/api/saved-questions`, {
+  const response = await fetch(`${API_BASE}/api/saved-questions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function createSavedQuestion(newQuestion) {
 }
 
 export async function deleteSavedQuestion(id) {
-  const response = await fetch(`${BASE_URL}/api/saved-questions/${id}`, {
+  const response = await fetch(`${API_BASE}/api/saved-questions/${id}`, {
     method: "DELETE",
   });
 
@@ -39,7 +39,7 @@ export async function deleteSavedQuestion(id) {
 }
 
 export async function markAsReviewed(id) {
-  const response = await fetch(`${BASE_URL}/api/saved-questions/${id}/review`, {
+  const response = await fetch(`${API_BASE}/api/saved-questions/${id}/review`, {
     method: "PUT",
   });
 
