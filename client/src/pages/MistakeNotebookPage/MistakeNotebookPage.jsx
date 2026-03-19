@@ -5,7 +5,6 @@ import {
   markAsReviewed,
 } from "../../services/savedQuestionsApi";
 import SavedQuestionCard from "../../components/SavedQuestionCard/SavedQuestionCard";
-import "./MistakeNotebookPage.css";
 
 function MistakeNotebookPage() {
   const [mistakeQuestions, setMistakeQuestions] = useState([]);
