@@ -24,7 +24,6 @@ function QuestionBrowserPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // New: answer state
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [checkedAnswers, setCheckedAnswers] = useState({});
 
@@ -97,7 +96,6 @@ function QuestionBrowserPage() {
             totalPages: Number(result?.totalPages) || 1,
           });
 
-          // Reset answer state when page/filter changes
           setSelectedAnswers({});
           setCheckedAnswers({});
         }
@@ -319,14 +317,14 @@ function QuestionBrowserPage() {
                             if (!checked) {
                               className += isSelected
                                 ? " bg-primary text-white"
-                                : " bg-light";
+                                : " bg-light text-dark";
                             } else {
                               if (isCorrect) {
                                 className += " bg-success text-white";
                               } else if (isSelected && !isCorrect) {
                                 className += " bg-danger text-white";
                               } else {
-                                className += " bg-light";
+                                className += " bg-light text-dark";
                               }
                             }
 
@@ -338,11 +336,14 @@ function QuestionBrowserPage() {
                                 <button
                                   type="button"
                                   className={className}
-                                  onClick={() =>
-                                    handleSelectAnswer(questionKey, option)
-                                  }
-                                  disabled={checked}
-                                  style={{ cursor: checked ? "default" : "pointer" }}
+                                  onClick={() => {
+                                    if (!checked) {
+                                      handleSelectAnswer(questionKey, option);
+                                    }
+                                  }}
+                                  style={{
+                                    cursor: checked ? "default" : "pointer",
+                                  }}
                                 >
                                   {option}
                                 </button>
