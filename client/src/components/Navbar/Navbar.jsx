@@ -9,7 +9,6 @@ function Navbar() {
       <span className="navbar-brand">EasyPass DMV Practice Tracker</span>
 
       <div className="ms-auto d-flex gap-2 flex-wrap">
-        {/* Saved Questions */}
         <Link
           to="/"
           className={
@@ -21,7 +20,6 @@ function Navbar() {
           Saved
         </Link>
 
-        {/* Mistake Notebook */}
         <Link
           to="/mistakes"
           className={
@@ -33,7 +31,6 @@ function Navbar() {
           Mistakes
         </Link>
 
-        {/* Favorites */}
         <Link
           to="/favorites"
           className={
@@ -45,7 +42,17 @@ function Navbar() {
           Favorites
         </Link>
 
-        {/* Add Question */}
+        <Link
+          to="/history"
+          className={
+            location.pathname === "/history"
+              ? "btn btn-secondary"
+              : "btn btn-outline-light"
+          }
+        >
+          History
+        </Link>
+
         <Link
           to="/add-question"
           className={
@@ -57,7 +64,6 @@ function Navbar() {
           Add
         </Link>
 
-        {/* Quiz */}
         <Link
           to="/quiz"
           className={
@@ -68,9 +74,6 @@ function Navbar() {
         >
           Quiz
         </Link>
-
-        <Link to="/history">History</Link>
-        
       </div>
     </nav>
   );
