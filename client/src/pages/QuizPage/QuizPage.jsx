@@ -10,10 +10,15 @@ function QuizPage() {
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showResult, setShowResult] = useState(false);
-  const [actionMessage, setActionMessage] = useState("");
 
   const [correctCount, setCorrectCount] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
+
+  const [actionMessage, setActionMessage] = useState("");
+
+  // ⭐ 新增状态
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [isMistake, setIsMistake] = useState(false);
 
   useEffect(() => {
     loadQuestion();
@@ -26,15 +31,29 @@ function QuizPage() {
       setSelectedAnswer("");
       setShowResult(false);
       setActionMessage("");
+
+      // ⭐ 每次加载题目时检查状态
+      const existingQuestions = await getSavedQuestions();
+
+      const fav = existingQuestions.some(
+        (item) =>
+          item.questionId === data.questionId && item.source === "favorite"
+      );
+
+      const mistake = existingQuestions.some(
+        (item) =>
+          item.questionId === data.questionId && item.source === "mistake"
+      );
+
+      setIsFavorited(fav);
+      setIsMistake(mistake);
     } catch (error) {
       console.error("Failed to load question:", error);
     }
   }
 
   function handleAnswerClick(option) {
-    if (showResult || !question) {
-      return;
-    }
+    if (showResult || !question) return;
 
     setSelectedAnswer(option);
     setShowResult(true);
@@ -46,23 +65,9 @@ function QuizPage() {
   }
 
   async function handleAddToFavorite() {
-    if (!question) {
-      return;
-    }
+    if (!question || isFavorited) return;
 
     try {
-      const existingQuestions = await getSavedQuestions();
-
-      const alreadyExists = existingQuestions.some(
-        (item) =>
-          item.questionId === question.questionId && item.source === "favorite"
-      );
-
-      if (alreadyExists) {
-        setActionMessage("This question is already in Favorites.");
-        return;
-      }
-
       const payload = {
         userId: "demo-user-1",
         questionId: question.questionId,
@@ -76,31 +81,19 @@ function QuizPage() {
       };
 
       await createSavedQuestion(payload);
+
+      setIsFavorited(true);
       setActionMessage("Added to Favorites.");
     } catch (error) {
-      console.error("Failed to add favorite:", error);
+      console.error(error);
       setActionMessage("Failed to add to Favorites.");
     }
   }
 
   async function handleAddToMistake() {
-    if (!question) {
-      return;
-    }
+    if (!question || isMistake) return;
 
     try {
-      const existingQuestions = await getSavedQuestions();
-
-      const alreadyExists = existingQuestions.some(
-        (item) =>
-          item.questionId === question.questionId && item.source === "mistake"
-      );
-
-      if (alreadyExists) {
-        setActionMessage("This question is already in Mistake Notebook.");
-        return;
-      }
-
       const payload = {
         userId: "demo-user-1",
         questionId: question.questionId,
@@ -114,9 +107,11 @@ function QuizPage() {
       };
 
       await createSavedQuestion(payload);
+
+      setIsMistake(true);
       setActionMessage("Added to Mistake Notebook.");
     } catch (error) {
-      console.error("Failed to add mistake question:", error);
+      console.error(error);
       setActionMessage("Failed to add to Mistake Notebook.");
     }
   }
@@ -172,19 +167,30 @@ function QuizPage() {
                 </p>
               </div>
 
+              {/* ⭐ 状态按钮 */}
               <div className="d-flex gap-2">
                 <button
-                  className="btn btn-outline-warning"
+                  className={
+                    isFavorited
+                      ? "btn btn-warning"
+                      : "btn btn-outline-warning"
+                  }
                   onClick={handleAddToFavorite}
+                  disabled={isFavorited}
                 >
-                  ⭐ Favorite
+                  ⭐ {isFavorited ? "Favorited" : "Favorite"}
                 </button>
 
                 <button
-                  className="btn btn-outline-danger"
+                  className={
+                    isMistake
+                      ? "btn btn-secondary"
+                      : "btn btn-outline-danger"
+                  }
                   onClick={handleAddToMistake}
+                  disabled={isMistake}
                 >
-                  ⚠️ Mistake
+                  ❌ {isMistake ? "Added" : "Mistake"}
                 </button>
               </div>
             </div>
@@ -231,7 +237,9 @@ function QuizPage() {
             )}
 
             {actionMessage && (
-              <div className="alert alert-info mt-3 mb-0">{actionMessage}</div>
+              <div className="alert alert-info mt-3 mb-0">
+                {actionMessage}
+              </div>
             )}
 
             <button className="btn btn-primary mt-4" onClick={loadQuestion}>
