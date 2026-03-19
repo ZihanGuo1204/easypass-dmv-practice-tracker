@@ -4,6 +4,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const savedQuestionsRoutes = require("./routes/savedQuestions");
 const questionsRoutes = require("./routes/questions");
+const attemptsRoutes = require("./routes/attempts");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 // routes
 app.use("/api/saved-questions", savedQuestionsRoutes);
 app.use("/api/questions", questionsRoutes);
+app.use("/api/attempts", attemptsRoutes);
 
 // test route
 app.get("/", (req, res) => {

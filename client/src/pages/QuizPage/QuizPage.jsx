@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getRandomQuestion } from "../../services/questionsApi";
+import { createAttempt } from "../../services/attemptsApi";
 import {
   createSavedQuestion,
   getSavedQuestions,
@@ -16,7 +17,7 @@ function QuizPage() {
 
   const [actionMessage, setActionMessage] = useState("");
 
-  // ⭐ 新增状态
+ 
   const [isFavorited, setIsFavorited] = useState(false);
   const [isMistake, setIsMistake] = useState(false);
 
@@ -32,7 +33,6 @@ function QuizPage() {
       setShowResult(false);
       setActionMessage("");
 
-      // ⭐ 每次加载题目时检查状态
       const existingQuestions = await getSavedQuestions();
 
       const fav = existingQuestions.some(
@@ -52,17 +52,36 @@ function QuizPage() {
     }
   }
 
-  function handleAnswerClick(option) {
-    if (showResult || !question) return;
-
-    setSelectedAnswer(option);
-    setShowResult(true);
-    setAnsweredCount((prev) => prev + 1);
-
-    if (option === question.correctAnswer) {
-      setCorrectCount((prev) => prev + 1);
-    }
+  async function handleAnswerClick(option) {
+  if (showResult || !question) {
+    return;
   }
+
+  setSelectedAnswer(option);
+  setShowResult(true);
+  setAnsweredCount((prev) => prev + 1);
+
+  const isCorrect = option === question.correctAnswer;
+
+  if (isCorrect) {
+    setCorrectCount((prev) => prev + 1);
+  }
+
+  try {
+    await createAttempt({
+      userId: "demo-user-1",
+      questionId: question.questionId,
+      questionText: question.questionText,
+      selectedAnswer: option,
+      correctAnswer: question.correctAnswer,
+      isCorrect,
+      topic: question.topic,
+      difficulty: question.difficulty,
+    });
+  } catch (error) {
+    console.error("Failed to save attempt:", error);
+  }
+}
 
   async function handleAddToFavorite() {
     if (!question || isFavorited) return;
@@ -167,7 +186,7 @@ function QuizPage() {
                 </p>
               </div>
 
-              {/* ⭐ 状态按钮 */}
+              {/* ⭐ Status Button */}
               <div className="d-flex gap-2">
                 <button
                   className={
