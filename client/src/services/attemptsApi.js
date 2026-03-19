@@ -19,3 +19,19 @@ export async function createAttempt(attemptData) {
     throw error;
   }
 }
+
+// Get all attempts
+export async function getAttempts() {
+  try {
+    const response = await fetch("/api/attempts");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch attempts");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching attempts:", error);
+    throw error;
+  }
+}

@@ -68,6 +68,9 @@ function Navbar() {
         >
           Quiz
         </Link>
+
+        <Link to="/history">History</Link>
+        
       </div>
     </nav>
   );
