@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://easypass-dmv-practice-tracker.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
