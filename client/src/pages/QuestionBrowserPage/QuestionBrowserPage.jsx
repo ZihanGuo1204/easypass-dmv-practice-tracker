@@ -53,7 +53,7 @@ function QuestionBrowserPage() {
               : [],
           });
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) {
           setMetaError("Failed to load filter options.");
         }
@@ -99,7 +99,7 @@ function QuestionBrowserPage() {
           setSelectedAnswers({});
           setCheckedAnswers({});
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) {
           setError("Failed to load questions.");
           setData({

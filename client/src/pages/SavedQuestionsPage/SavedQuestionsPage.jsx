@@ -18,7 +18,7 @@ function SavedQuestionsPage() {
       try {
         const data = await getSavedQuestions();
         setSavedQuestions([...data].reverse()); // 最新在上面
-      } catch (error) {
+      } catch {
         setErrorMessage("Failed to load saved questions.");
       } finally {
         setLoading(false);

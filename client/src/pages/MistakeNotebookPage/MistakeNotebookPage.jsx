@@ -20,7 +20,7 @@ function MistakeNotebookPage() {
           (question) => question.source === "mistake"
         );
         setMistakeQuestions(mistakesOnly);
-      } catch (error) {
+      } catch {
         setErrorMessage("Failed to load mistake notebook.");
       } finally {
         setLoading(false);
