@@ -1,8 +1,7 @@
 # EasyPass DMV Practice Tracker
 
 **Authors**: Zihan Guo, Fanchao Yu  
-**Course**: CS5610 Web Development  
-**Course Link**: https://johnguerra.co/classes/webDevelopment_online_spring_2026/
+**Course**: CS5610 Web Development
 
 ---
 
