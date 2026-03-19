@@ -1,5 +1,7 @@
+import BASE_URL from "./config";
+
 export async function createAttempt(attemptData) {
-  const response = await fetch("/api/attempts", {
+  const response = await fetch(`${BASE_URL}/api/attempts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
