@@ -35,8 +35,8 @@ The system helps users practice DMV-style questions, track performance, and orga
 
 ## Live Demo
 
-- **Frontend (Vercel)**: https://easypass-dmv-practice-tracker.vercel.app  
-- **Backend (Render)**: https://easypass-dmv-practice-tracker.onrender.com  
+- **Frontend (Vercel)**: https://easypass-dmv-practice-tracker.vercel.app
+- **Backend (Render)**: https://easypass-dmv-practice-tracker.onrender.com
 
 ---
 
@@ -54,25 +54,30 @@ The system helps users practice DMV-style questions, track performance, and orga
 ## How to Use
 
 ### Browse Questions
+
 - Navigate to `/questions`
 - Filter by topic, difficulty, or keyword
 - Use pagination controls
 
 ### Quiz Mode
+
 - Navigate to `/quiz`
 - Select an answer
 - Immediate feedback (correct/incorrect)
 - Move to next question or restart quiz
 
 ### Save Questions
+
 - ⭐ Favorite → save to Favorites
 - ❌ Mistake → save to Mistake Notebook
 
 ### Review Lists
+
 - Access Saved / Favorites / Mistakes pages
 - Mark questions as reviewed or delete them
 
 ### Attempt History
+
 - View past attempts in `/history`
 
 ---
@@ -80,6 +85,7 @@ The system helps users practice DMV-style questions, track performance, and orga
 ## Tech Stack
 
 ### Frontend
+
 - React (hooks)
 - React Router
 - Vite
@@ -87,13 +93,16 @@ The system helps users practice DMV-style questions, track performance, and orga
 - PropTypes
 
 ### Backend
+
 - Node.js
 - Express
 
 ### Database
+
 - MongoDB (native driver)
 
 ### Other
+
 - Fetch API (no axios)
 - ESLint
 - Prettier
