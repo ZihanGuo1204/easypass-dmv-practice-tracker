@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createSavedQuestion } from "../../services/savedQuestionsApi";
-import "./AddQuestionPage.css";
 
 function AddQuestionPage() {
   const [newQuestion, setNewQuestion] = useState({
