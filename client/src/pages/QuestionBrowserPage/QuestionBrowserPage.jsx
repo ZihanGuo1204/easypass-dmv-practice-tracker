@@ -167,7 +167,10 @@ function QuestionBrowserPage() {
               <div className="text-muted">{activeFiltersLabel}</div>
             </div>
 
-            <button className="btn btn-outline-secondary" onClick={clearFilters}>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={clearFilters}
+            >
               Clear filters
             </button>
           </div>
@@ -244,7 +247,9 @@ function QuestionBrowserPage() {
               ) : (
                 <>
                   Showing {(data.items || []).length} of {data.total} questions
-                  {data.totalPages ? ` • Page ${page} / ${data.totalPages}` : ""}
+                  {data.totalPages
+                    ? ` • Page ${page} / ${data.totalPages}`
+                    : ""}
                 </>
               )}
             </div>
@@ -285,7 +290,10 @@ function QuestionBrowserPage() {
               const checked = checkedAnswers[questionKey];
 
               return (
-                <div key={item._id || item.questionId} className="card shadow-sm">
+                <div
+                  key={item._id || item.questionId}
+                  className="card shadow-sm"
+                >
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
                       <div>
@@ -297,7 +305,8 @@ function QuestionBrowserPage() {
                             <strong>Topic:</strong> {item.topic || "—"}
                           </span>
                           <span>
-                            <strong>Difficulty:</strong> {item.difficulty || "—"}
+                            <strong>Difficulty:</strong>{" "}
+                            {item.difficulty || "—"}
                           </span>
                         </div>
 
@@ -312,7 +321,8 @@ function QuestionBrowserPage() {
                             const isSelected = selectedAnswer === option;
                             const isCorrect = item.correctAnswer === option;
 
-                            let className = "w-100 text-start border rounded p-2";
+                            let className =
+                              "w-100 text-start border rounded p-2";
 
                             if (!checked) {
                               className += isSelected
@@ -370,7 +380,8 @@ function QuestionBrowserPage() {
                                 </span>
                               ) : (
                                 <span className="text-danger fw-semibold">
-                                  ❌ Incorrect. Correct answer: {item.correctAnswer}
+                                  ❌ Incorrect. Correct answer:{" "}
+                                  {item.correctAnswer}
                                 </span>
                               )}
                             </div>

@@ -45,12 +45,14 @@ const baseQuestions = [
       "Only in school zones",
       "Only when a police officer is present",
     ],
-    correctAnswer: "At all crosswalks and intersections where pedestrians are present",
+    correctAnswer:
+      "At all crosswalks and intersections where pedestrians are present",
     topic: "Right of Way",
     difficulty: "medium",
   },
   {
-    questionText: "What should you do when an emergency vehicle with siren is approaching?",
+    questionText:
+      "What should you do when an emergency vehicle with siren is approaching?",
     options: [
       "Move to the right edge of the road and stop",
       "Keep driving at the same speed",
@@ -74,7 +76,8 @@ const baseQuestions = [
     difficulty: "medium",
   },
   {
-    questionText: "If a school bus is stopped with flashing red lights, what must you do?",
+    questionText:
+      "If a school bus is stopped with flashing red lights, what must you do?",
     options: [
       "Stop until the lights stop flashing",
       "Pass slowly on the left",
@@ -86,7 +89,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "Why is it dangerous to drive too closely behind another vehicle?",
+    questionText:
+      "Why is it dangerous to drive too closely behind another vehicle?",
     options: [
       "It reduces your ability to stop in time",
       "It improves fuel economy too much",
@@ -98,7 +102,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "When parking uphill with a curb, which way should you turn your front wheels?",
+    questionText:
+      "When parking uphill with a curb, which way should you turn your front wheels?",
     options: [
       "Away from the curb",
       "Toward the curb",
@@ -189,7 +194,8 @@ const baseQuestions = [
       "Only on a one-lane road",
       "Whenever the shoulder is wide enough",
     ],
-    correctAnswer: "When it is safe and the vehicle ahead is making a left turn",
+    correctAnswer:
+      "When it is safe and the vehicle ahead is making a left turn",
     topic: "Passing",
     difficulty: "medium",
   },
@@ -206,7 +212,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "If you see a pedestrian using a white cane or guide dog, you must:",
+    questionText:
+      "If you see a pedestrian using a white cane or guide dog, you must:",
     options: [
       "Yield the right-of-way",
       "Honk to warn them",
@@ -242,7 +249,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "What is the legal speed limit in a school zone when children are present?",
+    questionText:
+      "What is the legal speed limit in a school zone when children are present?",
     options: [
       "Follow the posted reduced speed limit",
       "Always drive 45 mph",
@@ -314,7 +322,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "If two vehicles arrive at a four-way stop at the same time, who has the right-of-way?",
+    questionText:
+      "If two vehicles arrive at a four-way stop at the same time, who has the right-of-way?",
     options: [
       "The vehicle on the right",
       "The larger vehicle",
@@ -338,7 +347,8 @@ const baseQuestions = [
     difficulty: "easy",
   },
   {
-    questionText: "What is the safest following distance in good driving conditions?",
+    questionText:
+      "What is the safest following distance in good driving conditions?",
     options: [
       "At least three seconds behind the vehicle ahead",
       "One second behind the vehicle ahead",
@@ -350,7 +360,8 @@ const baseQuestions = [
     difficulty: "medium",
   },
   {
-    questionText: "What should you do if traffic signals are not working at an intersection?",
+    questionText:
+      "What should you do if traffic signals are not working at an intersection?",
     options: [
       "Treat the intersection as a four-way stop",
       "Drive through without stopping",
@@ -362,7 +373,8 @@ const baseQuestions = [
     difficulty: "medium",
   },
   {
-    questionText: "When parking downhill with a curb, which way should you turn your front wheels?",
+    questionText:
+      "When parking downhill with a curb, which way should you turn your front wheels?",
     options: [
       "Toward the curb",
       "Away from the curb",

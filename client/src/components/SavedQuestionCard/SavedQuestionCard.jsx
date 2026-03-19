@@ -20,7 +20,9 @@ function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
           <strong>Source:</strong> {question.source}
           <br />
           <strong>Reviewed:</strong>{" "}
-          <span className={question.isReviewed ? "text-success" : "text-danger"}>
+          <span
+            className={question.isReviewed ? "text-success" : "text-danger"}
+          >
             {question.isReviewed ? "Yes" : "No"}
           </span>
           <br />

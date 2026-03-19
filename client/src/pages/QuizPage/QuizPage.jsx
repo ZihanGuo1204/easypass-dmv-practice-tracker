@@ -17,7 +17,6 @@ function QuizPage() {
 
   const [actionMessage, setActionMessage] = useState("");
 
- 
   const [isFavorited, setIsFavorited] = useState(false);
   const [isMistake, setIsMistake] = useState(false);
 
@@ -53,35 +52,35 @@ function QuizPage() {
   }
 
   async function handleAnswerClick(option) {
-  if (showResult || !question) {
-    return;
+    if (showResult || !question) {
+      return;
+    }
+
+    setSelectedAnswer(option);
+    setShowResult(true);
+    setAnsweredCount((prev) => prev + 1);
+
+    const isCorrect = option === question.correctAnswer;
+
+    if (isCorrect) {
+      setCorrectCount((prev) => prev + 1);
+    }
+
+    try {
+      await createAttempt({
+        userId: "demo-user-1",
+        questionId: question.questionId,
+        questionText: question.questionText,
+        selectedAnswer: option,
+        correctAnswer: question.correctAnswer,
+        isCorrect,
+        topic: question.topic,
+        difficulty: question.difficulty,
+      });
+    } catch (error) {
+      console.error("Failed to save attempt:", error);
+    }
   }
-
-  setSelectedAnswer(option);
-  setShowResult(true);
-  setAnsweredCount((prev) => prev + 1);
-
-  const isCorrect = option === question.correctAnswer;
-
-  if (isCorrect) {
-    setCorrectCount((prev) => prev + 1);
-  }
-
-  try {
-    await createAttempt({
-      userId: "demo-user-1",
-      questionId: question.questionId,
-      questionText: question.questionText,
-      selectedAnswer: option,
-      correctAnswer: question.correctAnswer,
-      isCorrect,
-      topic: question.topic,
-      difficulty: question.difficulty,
-    });
-  } catch (error) {
-    console.error("Failed to save attempt:", error);
-  }
-}
 
   async function handleAddToFavorite() {
     if (!question || isFavorited) return;
@@ -190,9 +189,7 @@ function QuizPage() {
               <div className="d-flex gap-2">
                 <button
                   className={
-                    isFavorited
-                      ? "btn btn-warning"
-                      : "btn btn-outline-warning"
+                    isFavorited ? "btn btn-warning" : "btn btn-outline-warning"
                   }
                   onClick={handleAddToFavorite}
                   disabled={isFavorited}
@@ -202,9 +199,7 @@ function QuizPage() {
 
                 <button
                   className={
-                    isMistake
-                      ? "btn btn-secondary"
-                      : "btn btn-outline-danger"
+                    isMistake ? "btn btn-secondary" : "btn btn-outline-danger"
                   }
                   onClick={handleAddToMistake}
                   disabled={isMistake}
@@ -217,8 +212,7 @@ function QuizPage() {
             <h4 className="mb-3">{question.questionText}</h4>
 
             {question.options.map((option, index) => {
-              let buttonClass =
-                "btn btn-outline-primary w-100 mb-2 text-start";
+              let buttonClass = "btn btn-outline-primary w-100 mb-2 text-start";
 
               if (showResult) {
                 if (option === question.correctAnswer) {
@@ -256,9 +250,7 @@ function QuizPage() {
             )}
 
             {actionMessage && (
-              <div className="alert alert-info mt-3 mb-0">
-                {actionMessage}
-              </div>
+              <div className="alert alert-info mt-3 mb-0">{actionMessage}</div>
             )}
 
             <button className="btn btn-primary mt-4" onClick={loadQuestion}>

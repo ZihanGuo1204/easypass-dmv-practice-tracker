@@ -43,9 +43,7 @@ function MistakeNotebookPage() {
     try {
       await markAsReviewed(id);
       setMistakeQuestions((prev) =>
-        prev.map((q) =>
-          q._id === id ? { ...q, isReviewed: true } : q
-        )
+        prev.map((q) => (q._id === id ? { ...q, isReviewed: true } : q))
       );
     } catch (error) {
       console.error("Update failed:", error);

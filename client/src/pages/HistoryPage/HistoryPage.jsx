@@ -39,7 +39,8 @@ function HistoryPage() {
   }, []);
 
   const demoUserAttempts = useMemo(
-    () => attempts.filter((a) => (a?.userId || "demo-user-1") === "demo-user-1"),
+    () =>
+      attempts.filter((a) => (a?.userId || "demo-user-1") === "demo-user-1"),
     [attempts]
   );
 

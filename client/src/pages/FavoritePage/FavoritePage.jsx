@@ -6,7 +6,6 @@ import {
 } from "../../services/savedQuestionsApi";
 import SavedQuestionCard from "../../components/SavedQuestionCard/SavedQuestionCard";
 
-
 function FavoritePage() {
   const [favoriteQuestions, setFavoriteQuestions] = useState([]);
 
@@ -14,9 +13,7 @@ function FavoritePage() {
     async function loadFavorites() {
       try {
         const data = await getSavedQuestions();
-        const favoritesOnly = data.filter(
-          (q) => q.source === "favorite"
-        );
+        const favoritesOnly = data.filter((q) => q.source === "favorite");
         setFavoriteQuestions([...favoritesOnly].reverse());
       } catch (error) {
         console.error("Failed to load favorites:", error);
@@ -28,17 +25,13 @@ function FavoritePage() {
 
   async function handleDelete(id) {
     await deleteSavedQuestion(id);
-    setFavoriteQuestions((prev) =>
-      prev.filter((q) => q._id !== id)
-    );
+    setFavoriteQuestions((prev) => prev.filter((q) => q._id !== id));
   }
 
   async function handleMarkReviewed(id) {
     await markAsReviewed(id);
     setFavoriteQuestions((prev) =>
-      prev.map((q) =>
-        q._id === id ? { ...q, isReviewed: true } : q
-      )
+      prev.map((q) => (q._id === id ? { ...q, isReviewed: true } : q))
     );
   }
 

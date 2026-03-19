@@ -44,9 +44,7 @@ function SavedQuestionsPage() {
       await markAsReviewed(id);
 
       setSavedQuestions((prev) =>
-        prev.map((q) =>
-          q._id === id ? { ...q, isReviewed: true } : q
-        )
+        prev.map((q) => (q._id === id ? { ...q, isReviewed: true } : q))
       );
     } catch (error) {
       console.error("Update failed:", error);

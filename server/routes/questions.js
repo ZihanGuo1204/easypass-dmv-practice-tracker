@@ -76,7 +76,11 @@ router.get("/", async (req, res) => {
 
     const total = await questions.countDocuments(filter);
 
-    const items = await questions.find(filter).skip(skip).limit(limitNum).toArray();
+    const items = await questions
+      .find(filter)
+      .skip(skip)
+      .limit(limitNum)
+      .toArray();
 
     res.json({
       items,
