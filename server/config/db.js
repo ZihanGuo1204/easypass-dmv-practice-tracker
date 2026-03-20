@@ -1,12 +1,9 @@
-require("dotenv").config();
-
 const { MongoClient } = require("mongodb");
 
 const uri = process.env.MONGO_URI;
 
 if (!uri) {
-  console.error("❌ MONGO_URI is not defined in .env file");
-  process.exit(1);
+  throw new Error("MONGO_URI is not defined in .env file");
 }
 
 let client;
@@ -17,14 +14,13 @@ async function connectDB() {
     if (!client) {
       client = new MongoClient(uri);
       await client.connect();
-      database = client.db("easypass");
+      database = client.db(process.env.DB_NAME || "easypass");
       console.log("✅ MongoDB connected");
     }
     return database;
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message);
-    process.exit(1);
+    throw error;
   }
 }
 
-module.exports = connectDB;
+module.exports = { connectDB, getClient: () => client };
