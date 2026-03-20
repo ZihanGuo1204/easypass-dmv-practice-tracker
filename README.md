@@ -21,6 +21,10 @@ The system helps users practice DMV-style questions, track performance, and orga
 
 ---
 
+## Demo Thumbnail
+
+![Thumbnail](assets/screenshots/thumbnail.png)
+
 ## Screenshots
 
 ![Saved Questions](assets/screenshots/saved-questions.png)  
