@@ -5,11 +5,13 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-4">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-primary px-4"
+      aria-label="Main navigation"
+    >
       <span className="navbar-brand">EasyPass DMV Practice Tracker</span>
 
       <div className="ms-auto d-flex gap-2 flex-wrap">
-        {/* Saved */}
         <Link
           to="/"
           className={
@@ -17,11 +19,11 @@ function Navbar() {
               ? "btn btn-light"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/" ? "page" : undefined}
         >
           Saved
         </Link>
 
-        {/* Mistakes */}
         <Link
           to="/mistakes"
           className={
@@ -29,11 +31,11 @@ function Navbar() {
               ? "btn btn-warning"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/mistakes" ? "page" : undefined}
         >
           Mistakes
         </Link>
 
-        {/* Favorites */}
         <Link
           to="/favorites"
           className={
@@ -41,11 +43,11 @@ function Navbar() {
               ? "btn btn-success"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/favorites" ? "page" : undefined}
         >
           Favorites
         </Link>
 
-        {/* History */}
         <Link
           to="/history"
           className={
@@ -53,11 +55,11 @@ function Navbar() {
               ? "btn btn-secondary"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/history" ? "page" : undefined}
         >
           History
         </Link>
 
-        {/* ⭐ NEW: Browse */}
         <Link
           to="/questions"
           className={
@@ -65,11 +67,11 @@ function Navbar() {
               ? "btn btn-secondary"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/questions" ? "page" : undefined}
         >
           Browse
         </Link>
 
-        {/* Add */}
         <Link
           to="/add-question"
           className={
@@ -77,11 +79,13 @@ function Navbar() {
               ? "btn btn-info"
               : "btn btn-outline-light"
           }
+          aria-current={
+            location.pathname === "/add-question" ? "page" : undefined
+          }
         >
           Add
         </Link>
 
-        {/* Quiz */}
         <Link
           to="/quiz"
           className={
@@ -89,6 +93,7 @@ function Navbar() {
               ? "btn btn-dark"
               : "btn btn-outline-light"
           }
+          aria-current={location.pathname === "/quiz" ? "page" : undefined}
         >
           Quiz
         </Link>
