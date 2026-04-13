@@ -5,9 +5,12 @@ import {
   markAsReviewed,
 } from "../../services/savedQuestionsApi";
 import SavedQuestionCard from "../../components/SavedQuestionCard/SavedQuestionCard";
+import styles from "./FavoritePage.module.css";
 
 function FavoritePage() {
   const [favoriteQuestions, setFavoriteQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function loadFavorites() {
@@ -15,8 +18,10 @@ function FavoritePage() {
         const data = await getSavedQuestions();
         const favoritesOnly = data.filter((q) => q.source === "favorite");
         setFavoriteQuestions([...favoritesOnly].reverse());
-      } catch (error) {
-        console.error("Failed to load favorites:", error);
+      } catch {
+        setErrorMessage("Failed to load favorite questions.");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -24,25 +29,48 @@ function FavoritePage() {
   }, []);
 
   async function handleDelete(id) {
-    await deleteSavedQuestion(id);
-    setFavoriteQuestions((prev) => prev.filter((q) => q._id !== id));
+    try {
+      await deleteSavedQuestion(id);
+      setFavoriteQuestions((prev) => prev.filter((q) => q._id !== id));
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
   }
 
   async function handleMarkReviewed(id) {
-    await markAsReviewed(id);
-    setFavoriteQuestions((prev) =>
-      prev.map((q) => (q._id === id ? { ...q, isReviewed: true } : q))
-    );
+    try {
+      await markAsReviewed(id);
+      setFavoriteQuestions((prev) =>
+        prev.map((q) => (q._id === id ? { ...q, isReviewed: true } : q))
+      );
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+  }
+
+  if (loading) {
+    return <div className="container mt-4">Loading favorites...</div>;
+  }
+
+  if (errorMessage) {
+    return <div className={`container mt-4 ${styles.errorText}`}>{errorMessage}</div>;
   }
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h1 className="text-center mb-4">Favorite Questions</h1>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Favorite Questions</h1>
+            <p className={styles.subtitle}>
+              Review questions you marked as important.
+            </p>
+          </div>
 
           {favoriteQuestions.length === 0 ? (
-            <p className="text-center">No favorite questions found.</p>
+            <div className={`card p-4 text-center ${styles.emptyState}`}>
+              No favorite questions found.
+            </div>
           ) : (
             favoriteQuestions.map((question) => (
               <SavedQuestionCard
