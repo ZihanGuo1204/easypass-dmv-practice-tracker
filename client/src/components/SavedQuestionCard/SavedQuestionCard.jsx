@@ -1,47 +1,60 @@
 import PropTypes from "prop-types";
-import "./SavedQuestionCard.css";
+import styles from "./SavedQuestionCard.module.css";
 
 function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
   return (
-    <div
-      className="card shadow-sm mb-3"
-      style={{ maxWidth: "600px", margin: "0 auto" }}
-    >
+    <div className={`card ${styles.card}`}>
       <div className="card-body">
-        <h5 className="card-title">{question.questionText}</h5>
+        <h5 className={styles.title}>{question.questionText}</h5>
 
-        <p className="card-text">
-          <strong>Question ID:</strong> {question.questionId}
-          <br />
-          <strong>Topic:</strong> {question.topic}
-          <br />
-          <strong>Difficulty:</strong> {question.difficulty}
-          <br />
-          <strong>Source:</strong> {question.source}
-          <br />
-          <strong>Reviewed:</strong>{" "}
-          <span
-            className={question.isReviewed ? "text-success" : "text-danger"}
+        <div className={styles.meta}>
+          <p>
+            <strong>ID:</strong> {question.questionId}
+          </p>
+          <p>
+            <strong>Topic:</strong> {question.topic || "—"}
+          </p>
+          <p>
+            <strong>Difficulty:</strong> {question.difficulty || "—"}
+          </p>
+          <p>
+            <strong>Source:</strong> {question.source}
+          </p>
+          <p>
+            <strong>Reviewed:</strong>{" "}
+            <span
+              className={
+                question.isReviewed
+                  ? styles.reviewedYes
+                  : styles.reviewedNo
+              }
+            >
+              {question.isReviewed ? "Yes" : "No"}
+            </span>
+          </p>
+          <p>
+            <strong>Note:</strong>{" "}
+            {question.personalNote || "No note yet"}
+          </p>
+        </div>
+
+        <div className={styles.actions}>
+          <button
+            className="btn btn-success"
+            onClick={() => onMarkReviewed(question._id)}
+            type="button"
           >
-            {question.isReviewed ? "Yes" : "No"}
-          </span>
-          <br />
-          <strong>Note:</strong> {question.personalNote || "No note yet"}
-        </p>
+            Mark as Reviewed
+          </button>
 
-        <button
-          className="btn btn-success me-2"
-          onClick={() => onMarkReviewed(question._id)}
-        >
-          Mark as Reviewed
-        </button>
-
-        <button
-          className="btn btn-danger"
-          onClick={() => onDelete(question._id)}
-        >
-          Delete
-        </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => onDelete(question._id)}
+            type="button"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import {
   createSavedQuestion,
   getSavedQuestions,
 } from "../../services/savedQuestionsApi";
-import "./QuizPage.css";
+import styles from "./QuizPage.module.css";
 
 function QuizPage() {
   const [question, setQuestion] = useState(null);
@@ -148,114 +148,131 @@ function QuizPage() {
   }
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h1 className="text-center mb-4">Practice Quiz</h1>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Practice Quiz</h1>
+            <p className={styles.subtitle}>
+              Answer a random DMV-style question and get instant feedback.
+            </p>
+          </div>
 
-          <div className="card p-4 shadow-sm">
-            <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-              <div>
-                <span className="badge bg-success me-2">
-                  Correct: {correctCount}
-                </span>
-                <span className="badge bg-secondary">
-                  Total Answered: {answeredCount}
-                </span>
+          <div className={`card ${styles.quizCard}`}>
+            <div className="card-body p-4">
+              <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <div>
+                  <span className="badge bg-success me-2">
+                    Correct: {correctCount}
+                  </span>
+                  <span className="badge bg-secondary">
+                    Total Answered: {answeredCount}
+                  </span>
+                </div>
+
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={handleRestartQuiz}
+                  type="button"
+                >
+                  Restart Quiz
+                </button>
               </div>
+
+              <div className="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+                <div className={styles.metaBlock}>
+                  <p className="mb-1">
+                    <strong>Question ID:</strong> {question.questionId}
+                  </p>
+                  <p className="mb-1">
+                    <strong>Topic:</strong> {question.topic}
+                  </p>
+                  <p className="mb-0">
+                    <strong>Difficulty:</strong> {question.difficulty}
+                  </p>
+                </div>
+
+                <div className="d-flex gap-2 flex-wrap">
+                  <button
+                    className={
+                      isFavorited ? "btn btn-warning" : "btn btn-outline-warning"
+                    }
+                    onClick={handleAddToFavorite}
+                    disabled={isFavorited}
+                    type="button"
+                  >
+                    ⭐ {isFavorited ? "Favorited" : "Favorite"}
+                  </button>
+
+                  <button
+                    className={
+                      isMistake ? "btn btn-secondary" : "btn btn-outline-danger"
+                    }
+                    onClick={handleAddToMistake}
+                    disabled={isMistake}
+                    type="button"
+                  >
+                    ❌ {isMistake ? "Added" : "Mistake"}
+                  </button>
+                </div>
+              </div>
+
+              <h2 className={styles.questionText}>{question.questionText}</h2>
+
+              <div className="mt-4">
+                {question.options.map((option, index) => {
+                  let buttonClass =
+                    "btn btn-outline-primary w-100 mb-2 text-start";
+
+                  if (showResult) {
+                    if (option === question.correctAnswer) {
+                      buttonClass = "btn btn-success w-100 mb-2 text-start";
+                    } else if (option === selectedAnswer) {
+                      buttonClass = "btn btn-danger w-100 mb-2 text-start";
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={index}
+                      className={`${buttonClass} ${styles.answerButton}`}
+                      onClick={() => handleAnswerClick(option)}
+                      disabled={showResult}
+                      type="button"
+                    >
+                      {option}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {showResult && (
+                <div className={`mt-3 ${styles.feedback}`}>
+                  {selectedAnswer === question.correctAnswer ? (
+                    <p className="text-success mb-2">✅ Correct!</p>
+                  ) : (
+                    <>
+                      <p className="text-danger mb-2">❌ Incorrect.</p>
+                      <p className="text-success mb-0">
+                        Correct answer: <strong>{question.correctAnswer}</strong>
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {actionMessage && (
+                <div className="alert alert-info mt-3 mb-0">{actionMessage}</div>
+              )}
 
               <button
-                className="btn btn-outline-secondary"
-                onClick={handleRestartQuiz}
+                className={`btn btn-primary mt-4 ${styles.nextButton}`}
+                onClick={loadQuestion}
+                type="button"
               >
-                Restart Quiz
+                Next Question
               </button>
             </div>
-
-            <div className="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
-              <div>
-                <p className="mb-1">
-                  <strong>Question ID:</strong> {question.questionId}
-                </p>
-                <p className="mb-1">
-                  <strong>Topic:</strong> {question.topic}
-                </p>
-                <p className="mb-0">
-                  <strong>Difficulty:</strong> {question.difficulty}
-                </p>
-              </div>
-
-              {/* ⭐ Status Button */}
-              <div className="d-flex gap-2">
-                <button
-                  className={
-                    isFavorited ? "btn btn-warning" : "btn btn-outline-warning"
-                  }
-                  onClick={handleAddToFavorite}
-                  disabled={isFavorited}
-                >
-                  ⭐ {isFavorited ? "Favorited" : "Favorite"}
-                </button>
-
-                <button
-                  className={
-                    isMistake ? "btn btn-secondary" : "btn btn-outline-danger"
-                  }
-                  onClick={handleAddToMistake}
-                  disabled={isMistake}
-                >
-                  ❌ {isMistake ? "Added" : "Mistake"}
-                </button>
-              </div>
-            </div>
-
-            <h4 className="mb-3">{question.questionText}</h4>
-
-            {question.options.map((option, index) => {
-              let buttonClass = "btn btn-outline-primary w-100 mb-2 text-start";
-
-              if (showResult) {
-                if (option === question.correctAnswer) {
-                  buttonClass = "btn btn-success w-100 mb-2 text-start";
-                } else if (option === selectedAnswer) {
-                  buttonClass = "btn btn-danger w-100 mb-2 text-start";
-                }
-              }
-
-              return (
-                <button
-                  key={index}
-                  className={buttonClass}
-                  onClick={() => handleAnswerClick(option)}
-                  disabled={showResult}
-                >
-                  {option}
-                </button>
-              );
-            })}
-
-            {showResult && (
-              <div className="mt-3">
-                {selectedAnswer === question.correctAnswer ? (
-                  <p className="text-success mb-2">✅ Correct!</p>
-                ) : (
-                  <>
-                    <p className="text-danger mb-2">❌ Incorrect.</p>
-                    <p className="text-success mb-0">
-                      Correct answer: <strong>{question.correctAnswer}</strong>
-                    </p>
-                  </>
-                )}
-              </div>
-            )}
-
-            {actionMessage && (
-              <div className="alert alert-info mt-3 mb-0">{actionMessage}</div>
-            )}
-
-            <button className="btn btn-primary mt-4" onClick={loadQuestion}>
-              Next Question
-            </button>
           </div>
         </div>
       </div>

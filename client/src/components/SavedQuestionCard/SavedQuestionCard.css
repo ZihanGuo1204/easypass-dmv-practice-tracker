@@ -1,40 +1,41 @@
-.saved-question-card {
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-}
-
-.saved-question-card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-}
-
-.saved-question-card p {
-  margin: 6px 0;
-}
-
-.button-group {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-}
-
-button {
-  padding: 6px 10px;
+.card {
+  max-width: 600px;
+  margin: 0 auto 1rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: #3498db;
-  color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-button:hover {
-  opacity: 0.9;
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.75rem;
 }
 
-.delete-btn {
-  background-color: #e74c3c;
+.meta {
+  font-size: 0.95rem;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.meta p {
+  margin-bottom: 0.25rem;
+}
+
+.reviewedYes {
+  color: #198754;
+  font-weight: 600;
+}
+
+.reviewedNo {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }

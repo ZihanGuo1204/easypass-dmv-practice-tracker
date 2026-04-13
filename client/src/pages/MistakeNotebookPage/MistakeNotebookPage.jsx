@@ -5,6 +5,7 @@ import {
   markAsReviewed,
 } from "../../services/savedQuestionsApi";
 import SavedQuestionCard from "../../components/SavedQuestionCard/SavedQuestionCard";
+import styles from "./MistakeNotebookPage.module.css";
 
 function MistakeNotebookPage() {
   const [mistakeQuestions, setMistakeQuestions] = useState([]);
@@ -54,17 +55,24 @@ function MistakeNotebookPage() {
   }
 
   if (errorMessage) {
-    return <div className="container mt-4 error-text">{errorMessage}</div>;
+    return <div className={`container mt-4 ${styles.errorText}`}>{errorMessage}</div>;
   }
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h1 className="text-center mb-4">Mistake Notebook</h1>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Mistake Notebook</h1>
+            <p className={styles.subtitle}>
+              Review questions you missed and track your weak areas.
+            </p>
+          </div>
 
           {mistakeQuestions.length === 0 ? (
-            <p className="text-center">No mistake questions found.</p>
+            <div className={`card p-4 text-center ${styles.emptyState}`}>
+              No mistake questions found.
+            </div>
           ) : (
             mistakeQuestions.map((question) => (
               <SavedQuestionCard

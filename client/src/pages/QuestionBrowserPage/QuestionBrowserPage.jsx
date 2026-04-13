@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getQuestionMeta, getQuestions } from "../../services/questionsApi";
+import styles from "./QuestionBrowserPage.module.css";
 
 const DEFAULT_LIMIT = 20;
 
@@ -158,25 +159,28 @@ function QuestionBrowserPage() {
   const canNext = page < (data.totalPages || 1) && !loading;
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-lg-10">
-          <div className="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+          <div
+            className={`d-flex justify-content-between align-items-start flex-wrap gap-2 ${styles.header}`}
+          >
             <div>
-              <h1 className="mb-1">Question Browser</h1>
-              <div className="text-muted">{activeFiltersLabel}</div>
+              <h1 className={styles.title}>Question Browser</h1>
+              <div className={styles.subtitle}>{activeFiltersLabel}</div>
             </div>
 
             <button
               className="btn btn-outline-secondary"
               onClick={clearFilters}
+              type="button"
             >
               Clear filters
             </button>
           </div>
 
-          <form className="card shadow-sm p-3 mb-3" onSubmit={applyFilters}>
-            <div className="row g-2 align-items-end">
+          <form className={styles.filterCard} onSubmit={applyFilters}>
+            <div className="row g-3 align-items-end">
               <div className="col-12 col-md-5">
                 <label className="form-label mb-1">Search</label>
                 <input
@@ -237,11 +241,13 @@ function QuestionBrowserPage() {
               </div>
             </div>
 
-            {metaError && <div className="text-danger mt-2">{metaError}</div>}
+            {metaError && <div className="text-danger mt-3">{metaError}</div>}
           </form>
 
-          <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-            <div className="text-muted">
+          <div
+            className={`d-flex justify-content-between align-items-center flex-wrap gap-2 ${styles.summaryRow}`}
+          >
+            <div className={styles.summaryText}>
               {loading ? (
                 "Loading..."
               ) : (
@@ -278,7 +284,7 @@ function QuestionBrowserPage() {
           {error && <div className="alert alert-danger">{error}</div>}
 
           {!loading && !error && data.items.length === 0 && (
-            <div className="card p-4 text-center text-muted">
+            <div className={`card p-4 text-center ${styles.emptyState}`}>
               No questions match your filters.
             </div>
           )}
@@ -292,12 +298,12 @@ function QuestionBrowserPage() {
               return (
                 <div
                   key={item._id || item.questionId}
-                  className="card shadow-sm"
+                  className={`card ${styles.questionCard}`}
                 >
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
                       <div>
-                        <div className="text-muted small mb-1">
+                        <div className={styles.meta}>
                           <span className="me-2">
                             <strong>ID:</strong> {item.questionId}
                           </span>
@@ -310,7 +316,9 @@ function QuestionBrowserPage() {
                           </span>
                         </div>
 
-                        <div className="fw-semibold">{item.questionText}</div>
+                        <div className={styles.questionText}>
+                          {item.questionText}
+                        </div>
                       </div>
                     </div>
 
@@ -345,7 +353,7 @@ function QuestionBrowserPage() {
                               >
                                 <button
                                   type="button"
-                                  className={className}
+                                  className={`${className} ${styles.answerButton}`}
                                   onClick={() => {
                                     if (!checked) {
                                       handleSelectAnswer(questionKey, option);
@@ -373,13 +381,13 @@ function QuestionBrowserPage() {
                           </button>
 
                           {checked && (
-                            <div>
+                            <div className={styles.feedback}>
                               {selectedAnswer === item.correctAnswer ? (
-                                <span className="text-success fw-semibold">
+                                <span className="text-success">
                                   ✅ Correct
                                 </span>
                               ) : (
-                                <span className="text-danger fw-semibold">
+                                <span className="text-danger">
                                   ❌ Incorrect. Correct answer:{" "}
                                   {item.correctAnswer}
                                 </span>
