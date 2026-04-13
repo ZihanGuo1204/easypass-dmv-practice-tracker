@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAttempts } from "../../services/attemptsApi";
+import styles from "./HistoryPage.module.css";
 
 function formatDateTime(value) {
   if (!value) return "";
@@ -55,11 +56,17 @@ function HistoryPage() {
   }, [demoUserAttempts]);
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-lg-10">
-          <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-            <h1 className="mb-0">History</h1>
+          <div className={styles.header}>
+            <div>
+              <h1 className={styles.title}>History</h1>
+              <p className={styles.subtitle}>
+                Review your recent attempts and track your progress over time.
+              </p>
+            </div>
+
             <div className="d-flex gap-2 flex-wrap">
               <span className="badge bg-secondary">Total: {stats.total}</span>
               <span className="badge bg-success">Correct: {stats.correct}</span>
@@ -76,7 +83,7 @@ function HistoryPage() {
           )}
 
           {!loading && !error && demoUserAttempts.length === 0 && (
-            <div className="alert alert-secondary mb-0">
+            <div className={`card p-4 text-center ${styles.emptyState}`}>
               No attempts yet. Try the Quiz tab and answer a few questions.
             </div>
           )}
@@ -89,18 +96,19 @@ function HistoryPage() {
                     a?._id ||
                     `${a?.questionId || "unknown"}-${a?.answeredAt || "unknown"}`
                   }
-                  className="card shadow-sm"
+                  className={`card ${styles.historyCard}`}
                 >
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
                       <div>
-                        <div className="fw-semibold">
+                        <div className={styles.resultText}>
                           {a?.isCorrect ? "✅ Correct" : "❌ Incorrect"}
                         </div>
-                        <div className="text-muted small">
+                        <div className={styles.timestamp}>
                           {formatDateTime(a?.answeredAt)}
                         </div>
                       </div>
+
                       <div className="d-flex gap-2 flex-wrap">
                         {a?.topic ? (
                           <span className="badge bg-info text-dark">
@@ -121,19 +129,21 @@ function HistoryPage() {
                     </div>
 
                     {a?.questionText ? (
-                      <div className="mt-3">
-                        <div className="fw-semibold">Question</div>
-                        <div>{a.questionText}</div>
+                      <div className={styles.questionBlock}>
+                        <div className={styles.sectionLabel}>Question</div>
+                        <div className={styles.questionText}>
+                          {a.questionText}
+                        </div>
                       </div>
                     ) : null}
 
                     <div className="row mt-3 g-2">
                       <div className="col-md-6">
-                        <div className="fw-semibold">Selected</div>
+                        <div className={styles.sectionLabel}>Selected</div>
                         <div>{a?.selectedAnswer || "-"}</div>
                       </div>
                       <div className="col-md-6">
-                        <div className="fw-semibold">Correct</div>
+                        <div className={styles.sectionLabel}>Correct</div>
                         <div>{a?.correctAnswer || "-"}</div>
                       </div>
                     </div>

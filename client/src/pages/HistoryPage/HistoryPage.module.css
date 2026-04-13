@@ -1,0 +1,64 @@
+.page {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.emptyState {
+  border: none;
+  border-radius: 12px;
+  color: #6c757d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.historyCard {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.resultText {
+  font-weight: 700;
+  color: #212529;
+}
+
+.timestamp {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.questionBlock {
+  margin-top: 1rem;
+}
+
+.sectionLabel {
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.25rem;
+}
+
+.questionText {
+  color: #212529;
+  line-height: 1.5;
+}
