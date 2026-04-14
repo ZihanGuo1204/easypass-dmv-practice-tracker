@@ -1,0 +1,19 @@
+.page {
+  margin-top: 20px;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.formCard {
+  border-radius: 12px;
+}
+
+.messageSuccess {
+  color: #198754;
+}
+
+.messageError {
+  color: #dc3545;
+}

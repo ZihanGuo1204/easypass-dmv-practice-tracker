@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createSavedQuestion } from "../../services/savedQuestionsApi";
+import styles from "./AddQuestionPage.module.css";
 
 function AddQuestionPage() {
   const [newQuestion, setNewQuestion] = useState({
@@ -59,12 +60,17 @@ function AddQuestionPage() {
   }
 
   return (
-    <div className="container mt-4">
+    <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h1 className="text-center mb-4">Add Question</h1>
+          <h1 className={`text-center mb-4 ${styles.title}`}>
+            Add Question
+          </h1>
 
-          <form className="card shadow-sm p-4" onSubmit={handleSubmit}>
+          <form
+            className={`card shadow-sm p-4 ${styles.formCard}`}
+            onSubmit={handleSubmit}
+          >
             <div className="mb-3">
               <label className="form-label">Question ID</label>
               <input
@@ -142,11 +148,15 @@ function AddQuestionPage() {
             </button>
 
             {successMessage && (
-              <p className="text-success mt-3 mb-0">{successMessage}</p>
+              <p className={`${styles.messageSuccess} mt-3 mb-0`}>
+                {successMessage}
+              </p>
             )}
 
             {errorMessage && (
-              <p className="text-danger mt-3 mb-0">{errorMessage}</p>
+              <p className={`${styles.messageError} mt-3 mb-0`}>
+                {errorMessage}
+              </p>
             )}
           </form>
         </div>

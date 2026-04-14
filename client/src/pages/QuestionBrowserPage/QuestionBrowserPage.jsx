@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getQuestionMeta, getQuestions } from "../../services/questionsApi";
+import QuestionBrowserCard from "../../components/QuestionBrowserCard/QuestionBrowserCard";
 import styles from "./QuestionBrowserPage.module.css";
 
 const DEFAULT_LIMIT = 20;
@@ -182,8 +183,11 @@ function QuestionBrowserPage() {
           <form className={styles.filterCard} onSubmit={applyFilters}>
             <div className="row g-3 align-items-end">
               <div className="col-12 col-md-5">
-                <label className="form-label mb-1">Search</label>
+                <label htmlFor="search-input" className="form-label mb-1">
+                  Search
+                </label>
                 <input
+                  id="search-input"
                   className="form-control"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -192,8 +196,11 @@ function QuestionBrowserPage() {
               </div>
 
               <div className="col-6 col-md-3">
-                <label className="form-label mb-1">Topic</label>
+                <label htmlFor="topic-select" className="form-label mb-1">
+                  Topic
+                </label>
                 <select
+                  id="topic-select"
                   className="form-select"
                   value={topic}
                   onChange={(e) => {
@@ -212,8 +219,14 @@ function QuestionBrowserPage() {
               </div>
 
               <div className="col-6 col-md-2">
-                <label className="form-label mb-1">Difficulty</label>
+                <label
+                  htmlFor="difficulty-select"
+                  className="form-label mb-1"
+                >
+                  Difficulty
+                </label>
                 <select
+                  id="difficulty-select"
                   className="form-select"
                   value={difficulty}
                   onChange={(e) => {
@@ -296,109 +309,16 @@ function QuestionBrowserPage() {
               const checked = checkedAnswers[questionKey];
 
               return (
-                <div
+                <QuestionBrowserCard
                   key={item._id || item.questionId}
-                  className={`card ${styles.questionCard}`}
-                >
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                      <div>
-                        <div className={styles.meta}>
-                          <span className="me-2">
-                            <strong>ID:</strong> {item.questionId}
-                          </span>
-                          <span className="me-2">
-                            <strong>Topic:</strong> {item.topic || "—"}
-                          </span>
-                          <span>
-                            <strong>Difficulty:</strong>{" "}
-                            {item.difficulty || "—"}
-                          </span>
-                        </div>
-
-                        <div className={styles.questionText}>
-                          {item.questionText}
-                        </div>
-                      </div>
-                    </div>
-
-                    {Array.isArray(item.options) && item.options.length > 0 && (
-                      <div className="mt-3">
-                        <div className="row g-2">
-                          {item.options.map((option, index) => {
-                            const isSelected = selectedAnswer === option;
-                            const isCorrect = item.correctAnswer === option;
-
-                            let className =
-                              "w-100 text-start border rounded p-2";
-
-                            if (!checked) {
-                              className += isSelected
-                                ? " bg-primary text-white"
-                                : " bg-light text-dark";
-                            } else {
-                              if (isCorrect) {
-                                className += " bg-success text-white";
-                              } else if (isSelected && !isCorrect) {
-                                className += " bg-danger text-white";
-                              } else {
-                                className += " bg-light text-dark";
-                              }
-                            }
-
-                            return (
-                              <div
-                                key={`${item.questionId}-${index}`}
-                                className="col-12 col-md-6"
-                              >
-                                <button
-                                  type="button"
-                                  className={`${className} ${styles.answerButton}`}
-                                  onClick={() => {
-                                    if (!checked) {
-                                      handleSelectAnswer(questionKey, option);
-                                    }
-                                  }}
-                                  style={{
-                                    cursor: checked ? "default" : "pointer",
-                                  }}
-                                >
-                                  {option}
-                                </button>
-                              </div>
-                            );
-                          })}
-                        </div>
-
-                        <div className="mt-3 d-flex gap-2 flex-wrap align-items-center">
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => handleCheckAnswer(questionKey)}
-                            disabled={!selectedAnswer || checked}
-                          >
-                            Check Answer
-                          </button>
-
-                          {checked && (
-                            <div className={styles.feedback}>
-                              {selectedAnswer === item.correctAnswer ? (
-                                <span className="text-success">
-                                  ✅ Correct
-                                </span>
-                              ) : (
-                                <span className="text-danger">
-                                  ❌ Incorrect. Correct answer:{" "}
-                                  {item.correctAnswer}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                  item={item}
+                  selectedAnswer={selectedAnswer}
+                  checked={checked}
+                  onSelectAnswer={(option) =>
+                    handleSelectAnswer(questionKey, option)
+                  }
+                  onCheckAnswer={() => handleCheckAnswer(questionKey)}
+                />
               );
             })}
           </div>

@@ -4,6 +4,13 @@ import "./Navbar.css";
 function Navbar() {
   const location = useLocation();
 
+  function getNavButtonClass(pathname, dark = false) {
+    if (location.pathname === pathname) {
+      return dark ? "btn btn-dark" : "btn btn-light";
+    }
+    return "btn btn-outline-light";
+  }
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-primary px-4"
@@ -14,11 +21,7 @@ function Navbar() {
       <div className="ms-auto d-flex gap-2 flex-wrap">
         <Link
           to="/"
-          className={
-            location.pathname === "/"
-              ? "btn btn-light"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/")}
           aria-current={location.pathname === "/" ? "page" : undefined}
         >
           Saved
@@ -26,11 +29,7 @@ function Navbar() {
 
         <Link
           to="/mistakes"
-          className={
-            location.pathname === "/mistakes"
-              ? "btn btn-warning"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/mistakes")}
           aria-current={location.pathname === "/mistakes" ? "page" : undefined}
         >
           Mistakes
@@ -38,11 +37,7 @@ function Navbar() {
 
         <Link
           to="/favorites"
-          className={
-            location.pathname === "/favorites"
-              ? "btn btn-success"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/favorites")}
           aria-current={location.pathname === "/favorites" ? "page" : undefined}
         >
           Favorites
@@ -50,11 +45,7 @@ function Navbar() {
 
         <Link
           to="/history"
-          className={
-            location.pathname === "/history"
-              ? "btn btn-secondary"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/history")}
           aria-current={location.pathname === "/history" ? "page" : undefined}
         >
           History
@@ -62,11 +53,7 @@ function Navbar() {
 
         <Link
           to="/questions"
-          className={
-            location.pathname === "/questions"
-              ? "btn btn-secondary"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/questions")}
           aria-current={location.pathname === "/questions" ? "page" : undefined}
         >
           Browse
@@ -74,11 +61,7 @@ function Navbar() {
 
         <Link
           to="/add-question"
-          className={
-            location.pathname === "/add-question"
-              ? "btn btn-info"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/add-question")}
           aria-current={
             location.pathname === "/add-question" ? "page" : undefined
           }
@@ -88,11 +71,7 @@ function Navbar() {
 
         <Link
           to="/quiz"
-          className={
-            location.pathname === "/quiz"
-              ? "btn btn-dark"
-              : "btn btn-outline-light"
-          }
+          className={getNavButtonClass("/quiz", true)}
           aria-current={location.pathname === "/quiz" ? "page" : undefined}
         >
           Quiz
