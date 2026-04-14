@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ user, onLogout }) {
   const location = useLocation();
 
   function getNavButtonClass(pathname, dark = false) {
@@ -16,7 +17,10 @@ function Navbar() {
       className="navbar navbar-expand-lg navbar-dark bg-primary px-4"
       aria-label="Main navigation"
     >
-      <span className="navbar-brand">EasyPass DMV Practice Tracker</span>
+      <div className="d-flex flex-column">
+        <span className="navbar-brand">EasyPass DMV Practice Tracker</span>
+        <span className="text-white small">Signed in as: {user.name}</span>
+      </div>
 
       <div className="ms-auto d-flex gap-2 flex-wrap">
         <Link
@@ -76,9 +80,26 @@ function Navbar() {
         >
           Quiz
         </Link>
+
+        <button
+          type="button"
+          className="btn btn-outline-light"
+          onClick={onLogout}
+        >
+          Logout
+        </button>
       </div>
     </nav>
   );
 }
+
+Navbar.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  onLogout: PropTypes.func.isRequired,
+};
 
 export default Navbar;

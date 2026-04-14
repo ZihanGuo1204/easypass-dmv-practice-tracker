@@ -1,22 +1,40 @@
 const express = require("express");
+const session = require("express-session");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
+const passport = require("./config/passport");
+
 const savedQuestionsRoutes = require("./routes/savedQuestions");
 const questionsRoutes = require("./routes/questions");
 const attemptsRoutes = require("./routes/attempts");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
-// middleware
 app.use(express.json());
 
-// routes
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "easypass-session-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use("/api/auth", authRoutes);
 app.use("/api/saved-questions", savedQuestionsRoutes);
 app.use("/api/questions", questionsRoutes);
 app.use("/api/attempts", attemptsRoutes);
 
-// test route
 app.get("/", (req, res) => {
   res.send("EasyPass API running");
 });
