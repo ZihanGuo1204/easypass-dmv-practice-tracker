@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { loginUser } from "../../services/authApi";
-import styles from "./LoginPage.module.css";
+import { registerUser } from "../../services/authApi";
+import styles from "./RegisterPage.module.css";
 
-function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
+function RegisterPage({ onSwitchToLogin }) {
   const [formData, setFormData] = useState({
+    name: "",
     username: "",
     password: "",
   });
+  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -21,14 +23,20 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setSuccessMessage("");
     setErrorMessage("");
     setLoading(true);
 
     try {
-      const result = await loginUser(formData);
-      onLoginSuccess(result.user);
+      await registerUser(formData);
+      setSuccessMessage("Registration successful. You can now log in.");
+      setFormData({
+        name: "",
+        username: "",
+        password: "",
+      });
     } catch (error) {
-      setErrorMessage(error.message || "Login failed");
+      setErrorMessage(error.message || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -40,19 +48,33 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
         <div className="col-12 col-sm-10 col-md-8 col-lg-6">
           <div className={`card shadow-sm ${styles.card}`}>
             <div className="card-body p-4 p-md-5">
-              <h1 className={styles.title}>EasyPass Login</h1>
+              <h1 className={styles.title}>Create Account</h1>
               <p className={styles.subtitle}>
-                Sign in to access your DMV practice dashboard, saved questions,
-                and quiz history.
+                Register a new account to use EasyPass DMV Practice Tracker.
               </p>
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="username" className="form-label">
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="register-username" className="form-label">
                     Username
                   </label>
                   <input
-                    id="username"
+                    id="register-username"
                     type="text"
                     name="username"
                     className="form-control"
@@ -63,11 +85,11 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
+                  <label htmlFor="register-password" className="form-label">
                     Password
                   </label>
                   <input
-                    id="password"
+                    id="register-password"
                     type="password"
                     name="password"
                     className="form-control"
@@ -82,9 +104,15 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
                   className="btn btn-primary w-100"
                   disabled={loading}
                 >
-                  {loading ? "Logging in..." : "Log In"}
+                  {loading ? "Registering..." : "Register"}
                 </button>
               </form>
+
+              {successMessage && (
+                <div className="alert alert-success mt-3 mb-0">
+                  {successMessage}
+                </div>
+              )}
 
               {errorMessage && (
                 <div className="alert alert-danger mt-3 mb-0">
@@ -92,20 +120,14 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
                 </div>
               )}
 
-              <div className={styles.demoInfo}>
-                <strong>Demo Account</strong>
-                <div>Username: demo</div>
-                <div>Password: easypass123</div>
-              </div>
-
               <div className={styles.switchBox}>
-                Need an account?{" "}
+                Already have an account?{" "}
                 <button
                   type="button"
                   className="btn btn-link p-0"
-                  onClick={onSwitchToRegister}
+                  onClick={onSwitchToLogin}
                 >
-                  Create one here
+                  Go to Login
                 </button>
               </div>
             </div>
@@ -116,9 +138,8 @@ function LoginPage({ onLoginSuccess, onSwitchToRegister }) {
   );
 }
 
-LoginPage.propTypes = {
-  onLoginSuccess: PropTypes.func.isRequired,
-  onSwitchToRegister: PropTypes.func.isRequired,
+RegisterPage.propTypes = {
+  onSwitchToLogin: PropTypes.func.isRequired,
 };
 
-export default LoginPage;
+export default RegisterPage;

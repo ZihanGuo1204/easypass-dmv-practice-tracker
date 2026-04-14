@@ -1,8 +1,58 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const passport = require("../config/passport");
+const connectDB = require("../config/db");
 
 const router = express.Router();
 
+// REGISTER
+router.post("/register", async (req, res) => {
+  try {
+    const db = await connectDB();
+    const usersCollection = db.collection("users");
+
+    const { name, username, password } = req.body;
+
+    if (!name || !username || !password) {
+      return res.status(400).json({
+        message: "Name, username, and password are required",
+      });
+    }
+
+    const existingUser = await usersCollection.findOne({ username });
+
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Username already exists",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const result = await usersCollection.insertOne({
+      name,
+      username,
+      password: hashedPassword,
+      createdAt: new Date(),
+    });
+
+    return res.status(201).json({
+      message: "Registration successful",
+      user: {
+        id: result.insertedId.toString(),
+        name,
+        username,
+      },
+    });
+  } catch (error) {
+    console.error("Registration error:", error);
+    return res.status(500).json({
+      message: "Failed to register user",
+    });
+  }
+});
+
+// LOGIN
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -28,6 +78,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+// LOGOUT
 router.post("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -45,6 +96,7 @@ router.post("/logout", (req, res, next) => {
   });
 });
 
+// CURRENT USER
 router.get("/me", (req, res) => {
   if (req.isAuthenticated && req.isAuthenticated()) {
     return res.json({

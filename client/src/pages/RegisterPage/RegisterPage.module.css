@@ -14,12 +14,11 @@
 }
 
 .title {
-  font-size: 2.25rem;
+  font-size: 2.1rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
   text-align: center;
   line-height: 1.2;
-  word-break: keep-all;
 }
 
 .subtitle {
@@ -28,30 +27,6 @@
   margin-bottom: 1.5rem;
   font-size: 1rem;
   line-height: 1.6;
-}
-
-.demoInfo {
-  margin-top: 1.25rem;
-  padding: 1rem 1.1rem;
-  border-radius: 12px;
-  background: #f8f9fa;
-  color: #495057;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-@media (max-width: 576px) {
-  .page {
-    padding: 24px 12px;
-  }
-
-  .title {
-    font-size: 1.9rem;
-  }
-
-  .subtitle {
-    font-size: 0.95rem;
-  }
 }
 
 .switchBox {

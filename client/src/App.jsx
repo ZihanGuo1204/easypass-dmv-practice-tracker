@@ -15,6 +15,7 @@ import QuizPage from "./pages/QuizPage/QuizPage";
 import HistoryPage from "./pages/HistoryPage/HistoryPage";
 import QuestionBrowserPage from "./pages/QuestionBrowserPage/QuestionBrowserPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { getCurrentUser, logoutUser } from "./services/authApi";
 import "./App.css";
 
@@ -22,6 +23,7 @@ function AppContent() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [authMode, setAuthMode] = useState("login");
 
   useEffect(() => {
     async function checkAuth() {
@@ -51,6 +53,7 @@ function AppContent() {
     try {
       await logoutUser();
       setUser(null);
+      setAuthMode("login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -61,7 +64,16 @@ function AppContent() {
   }
 
   if (!user) {
-    return <LoginPage onLoginSuccess={setUser} />;
+    if (authMode === "register") {
+      return <RegisterPage onSwitchToLogin={() => setAuthMode("login")} />;
+    }
+
+    return (
+      <LoginPage
+        onLoginSuccess={setUser}
+        onSwitchToRegister={() => setAuthMode("register")}
+      />
+    );
   }
 
   return (

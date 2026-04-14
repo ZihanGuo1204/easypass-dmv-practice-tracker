@@ -1,3 +1,22 @@
+export async function registerUser(userData) {
+  const response = await fetch("/api/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(userData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Registration failed");
+  }
+
+  return data;
+}
+
 export async function loginUser(credentials) {
   const response = await fetch("/api/auth/login", {
     method: "POST",
