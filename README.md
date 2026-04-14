@@ -67,6 +67,22 @@ Mistake Notebook
 
 ---
 
+## Authentication
+
+Authentication is implemented using Passport with session-based login.
+
+Users can:
+- Register a new account
+- Log in with an existing account
+- Stay signed in across page refreshes
+- Log out securely
+
+A demo account is also available for testing:
+- Username: demo
+- Password: easypass123
+
+---
+
 ## System Design
 
 ### MongoDB Collections
