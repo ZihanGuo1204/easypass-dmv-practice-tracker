@@ -1,23 +1,26 @@
 # EasyPass DMV Practice Tracker
 
 **Authors**: Zihan Guo, Fanchao Yu  
-**Course**: CS5610 Web Development
+**Course**: CS5610 Web Development  
+**Project Type**: Full Stack Web Application  
 
 ---
 
 ## Project Overview
 
-EasyPass is a **client-side rendered React application** (using hooks, no server-side rendering) combined with a Node.js/Express backend and MongoDB database.
+EasyPass is a client-side rendered React application built with a Node.js/Express backend and MongoDB database.
 
-The system helps users practice DMV-style questions, track performance, and organize study materials using favorites and a mistake notebook.
+The system helps users practice DMV-style questions, track learning progress, and organize study materials using features like Favorites and a Mistake Notebook.
 
 ---
 
-## Project Objectives
+## Live Demo
 
-- Enable focused practice by **topic and difficulty**
-- Track user performance via **attempt history**
-- Support personalized study through **Favorites and Mistake Notebook**
+Frontend (Vercel):  
+https://easypass-dmv-practice-tracker.vercel.app  
+
+Backend (Render):  
+https://easypass-dmv-practice-tracker.onrender.com  
 
 ---
 
@@ -25,103 +28,62 @@ The system helps users practice DMV-style questions, track performance, and orga
 
 ![Thumbnail](assets/screenshots/thumbnail.png)
 
-## Screenshots
-
-![Saved Questions](assets/screenshots/saved-questions.png)  
-![Practice Quiz](assets/screenshots/quiz.png)  
-![Add Question](assets/screenshots/add-question.png)  
-![Question Browser](assets/screenshots/question-browser.png)  
-![History](assets/screenshots/history.png)  
-![Favorite Questions](assets/screenshots/favorites.png)  
-![Mistake Notebook](assets/screenshots/mistake-notebook.png)
-
 ---
 
-## Live Demo
+## Screenshots
 
-- **Frontend (Vercel)**: https://easypass-dmv-practice-tracker.vercel.app
-- **Backend (Render)**: https://easypass-dmv-practice-tracker.onrender.com
+Saved Questions  
+![Saved Questions](assets/screenshots/saved-questions.png)
+
+Quiz Mode  
+![Quiz](assets/screenshots/quiz.png)
+
+Add Question  
+![Add Question](assets/screenshots/add-question.png)
+
+Question Browser  
+![Browser](assets/screenshots/question-browser.png)
+
+History  
+![History](assets/screenshots/history.png)
+
+Favorites  
+![Favorites](assets/screenshots/favorites.png)
+
+Mistake Notebook  
+![Mistakes](assets/screenshots/mistake-notebook.png)
 
 ---
 
 ## Features
 
-- Random DMV-style quiz practice
+- Random DMV-style quiz with immediate feedback
 - Question browser with filtering and search
 - Save questions to Favorites
 - Mistake Notebook for incorrect questions
 - Attempt history tracking
 - Mark questions as reviewed
+- Delete attempts and saved questions
 
 ---
 
-## How to Use
+## System Design
 
-### Browse Questions
+### MongoDB Collections
 
-- Navigate to `/questions`
-- Filter by topic, difficulty, or keyword
-- Use pagination controls
+We use three collections:
 
-### Quiz Mode
+questions  
+- Stores DMV question bank (1000+ synthetic records)  
+- Read-only collection used for browsing and quiz  
 
-- Navigate to `/quiz`
-- Select an answer
-- Immediate feedback (correct/incorrect)
-- Move to next question or restart quiz
+savedQuestions  
+- Stores user-saved questions  
+- Full CRUD supported  
 
-### Save Questions
-
-- ⭐ Favorite → save to Favorites
-- ❌ Mistake → save to Mistake Notebook
-
-### Review Lists
-
-- Access Saved / Favorites / Mistakes pages
-- Mark questions as reviewed or delete them
-
-### Attempt History
-
-- View past attempts in `/history`
-
----
-
-## Tech Stack
-
-### Frontend
-
-- React (hooks)
-- React Router
-- Vite
-- Bootstrap
-- PropTypes
-
-### Backend
-
-- Node.js
-- Express
-
-### Database
-
-- MongoDB (native driver)
-
-### Other
-
-- Fetch API (no axios)
-- ESLint
-- Prettier
-
----
-
-## Database Design
-
-Database: `easypass`
-
-Collections:
-
-- `questions` → question bank (1000+ synthetic records)
-- `savedQuestions` → favorites/mistakes with notes
-- `attempts` → user attempt history
+attempts  
+- Stores user attempt history  
+- Full CRUD supported  
 
 ---
 
@@ -129,51 +91,62 @@ Collections:
 
 ### Questions
 
-- `GET /api/questions`
-- `GET /api/questions/random`
-- `GET /api/questions/meta`
+GET /api/questions  
+GET /api/questions/random  
+GET /api/questions/meta  
 
-Example response:
+### Saved Questions (Full CRUD)
 
-```json
-{
-  "items": [],
-  "total": 1000,
-  "page": 1,
-  "totalPages": 50
-}
-```
+GET /api/saved-questions  
+POST /api/saved-questions  
+PUT /api/saved-questions/:id/review  
+DELETE /api/saved-questions/:id  
 
-### Saved Questions
+### Attempts (Full CRUD)
 
-- `GET /api/saved-questions`
-- `POST /api/saved-questions`
-- `DELETE /api/saved-questions/:id`
-- `PUT /api/saved-questions/:id/review`
+GET /api/attempts  
+POST /api/attempts  
+PUT /api/attempts/:id  
+DELETE /api/attempts/:id  
 
-### Attempts
+---
 
-- `GET /api/attempts`
-- `POST /api/attempts`
+## Tech Stack
+
+Frontend  
+- React (Hooks)  
+- React Router  
+- Vite  
+- Bootstrap  
+- PropTypes  
+- CSS Modules  
+
+Backend  
+- Node.js  
+- Express  
+
+Database  
+- MongoDB (native driver)  
+
+Other  
+- Fetch API  
+- ESLint  
+- Prettier  
 
 ---
 
 ## Project Structure
 
-```
-client/
-  src/
-    components/
-    pages/
-    services/
+client/  
+  src/  
+    components/  
+    pages/  
+    services/  
 
-server/
-  routes/
-  config/
-  seedQuestions.js
-```
-
-CSS is organized per component (co-located with JSX files).
+server/  
+  routes/  
+  config/  
+  seedQuestions.js  
 
 ---
 
@@ -181,117 +154,95 @@ CSS is organized per component (co-located with JSX files).
 
 ### Prerequisites
 
-- Node.js
-- MongoDB (Atlas or local)
+- Node.js  
+- MongoDB  
 
 ---
 
 ### Backend Setup
 
-```
-cd server
-npm install
-```
+cd server  
+npm install  
 
-Create `.env`:
+Create .env file:
 
-```
-MONGO_URI="your-mongodb-connection-string"
-PORT=4000
-```
+MONGO_URI="your-mongodb-connection-string"  
+PORT=4000  
 
-Run server:
+Run:
 
-```
-node server.js
-```
+node server.js  
 
 ---
 
 ### Seed Database
 
-```
-cd server
-node seedQuestions.js
-```
+cd server  
+node seedQuestions.js  
 
 ---
 
 ### Frontend Setup
 
-```
-cd client
-npm install
-```
+cd client  
+npm install  
 
-Optional:
+Run:
 
-```
-VITE_API_BASE_URL="http://localhost:4000"
-```
-
-Run frontend:
-
-```
-npm run dev
-```
+npm run dev  
 
 ---
 
 ## Code Quality
 
-### ESLint
+ESLint  
+npx eslint .  
 
-```
-cd client
-npx eslint .
-```
-
-### Prettier
-
-```
-npx prettier --write .
-```
+Prettier  
+npx prettier --write .  
 
 ---
 
 ## User Personas
 
-**1. Busy commuter (Alex, 24)**  
-Wants quick, focused practice sessions.
+Busy commuter (Alex, 24)  
+Needs quick practice sessions  
 
-**2. First-time driver (Mei, 17)**  
-Needs repetition and mistake tracking.
+First-time driver (Mei, 17)  
+Needs repetition and mistake tracking  
 
-**3. Test retaker (Jordan, 31)**  
-Wants to monitor improvement over time.
+Test retaker (Jordan, 31)  
+Wants to track improvement  
 
 ---
 
 ## User Stories
 
-- Browse and filter questions
-- Practice random questions
-- Save favorites
-- Track mistakes
-- View attempt history
-- Mark reviewed questions
+- Browse and filter questions  
+- Practice random questions  
+- Save favorites  
+- Track mistakes  
+- View attempt history  
+- Mark reviewed questions  
 
 ---
 
-## Design Notes
+## Accessibility
 
-Design is based on a simple and clean layout:
+- Semantic HTML structure  
+- Keyboard navigation supported  
+- Accessible form labels  
+- High contrast UI  
+- Lighthouse Accessibility Score: 100  
 
-- Navbar for navigation
-- Question cards for interaction
-- Filter panel for browsing
-- Quiz interface with immediate feedback
+---
 
-Screenshots above serve as visual mockups.
+## Course Link
+
+https://neu-seattle.github.io/cs5610/
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT License
