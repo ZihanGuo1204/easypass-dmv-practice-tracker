@@ -1,4 +1,4 @@
-// Save quiz attempt
+// CREATE: save a new quiz attempt
 export async function createAttempt(attemptData) {
   try {
     const response = await fetch("/api/attempts", {
@@ -20,7 +20,7 @@ export async function createAttempt(attemptData) {
   }
 }
 
-// Get all attempts
+// READ: get all attempts
 export async function getAttempts() {
   try {
     const response = await fetch("/api/attempts");
@@ -32,6 +32,46 @@ export async function getAttempts() {
     return await response.json();
   } catch (error) {
     console.error("Error fetching attempts:", error);
+    throw error;
+  }
+}
+
+// UPDATE: update an existing attempt
+export async function updateAttempt(id, updatedData) {
+  try {
+    const response = await fetch(`/api/attempts/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update attempt");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating attempt:", error);
+    throw error;
+  }
+}
+
+// DELETE: remove an attempt
+export async function deleteAttempt(id) {
+  try {
+    const response = await fetch(`/api/attempts/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete attempt");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting attempt:", error);
     throw error;
   }
 }

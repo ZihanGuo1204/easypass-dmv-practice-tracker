@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getAttempts } from "../../services/attemptsApi";
+import { deleteAttempt, getAttempts } from "../../services/attemptsApi";
 import styles from "./HistoryPage.module.css";
 
 function formatDateTime(value) {
@@ -34,10 +34,21 @@ function HistoryPage() {
     }
 
     load();
+
     return () => {
       cancelled = true;
     };
   }, []);
+
+  async function handleDeleteAttempt(id) {
+    try {
+      await deleteAttempt(id);
+      setAttempts((prev) => prev.filter((attempt) => attempt._id !== id));
+    } catch (e) {
+      console.error("Error deleting attempt:", e);
+      setError("Failed to delete attempt");
+    }
+  }
 
   const demoUserAttempts = useMemo(
     () =>
@@ -147,6 +158,18 @@ function HistoryPage() {
                         <div>{a?.correctAnswer || "-"}</div>
                       </div>
                     </div>
+
+                    {a?._id && (
+                      <div className="mt-3">
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger btn-sm"
+                          onClick={() => handleDeleteAttempt(a._id)}
+                        >
+                          Delete Attempt
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
