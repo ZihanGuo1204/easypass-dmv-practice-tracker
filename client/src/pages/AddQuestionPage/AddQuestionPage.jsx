@@ -63,9 +63,7 @@ function AddQuestionPage() {
     <div className={`container ${styles.page}`}>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h1 className={`text-center mb-4 ${styles.title}`}>
-            Add Question
-          </h1>
+          <h1 className={`text-center mb-4 ${styles.title}`}>Add Question</h1>
 
           <form
             className={`card shadow-sm p-4 ${styles.formCard}`}

@@ -2,7 +2,7 @@
 
 **Authors**: Zihan Guo, Fanchao Yu  
 **Course**: CS5610 Web Development  
-**Project Type**: Full Stack Web Application  
+**Project Type**: Full Stack Web Application
 
 ---
 
@@ -17,10 +17,10 @@ The system helps users practice DMV-style questions, track learning progress, an
 ## Live Demo
 
 Frontend (Vercel):  
-https://easypass-dmv-practice-tracker.vercel.app  
+https://easypass-dmv-practice-tracker.vercel.app
 
 Backend (Render):  
-https://easypass-dmv-practice-tracker.onrender.com  
+https://easypass-dmv-practice-tracker.onrender.com
 
 ---
 
@@ -73,17 +73,20 @@ Mistake Notebook
 
 We use three collections:
 
-questions  
-- Stores DMV question bank (1000+ synthetic records)  
-- Read-only collection used for browsing and quiz  
+questions
 
-savedQuestions  
-- Stores user-saved questions  
-- Full CRUD supported  
+- Stores DMV question bank (1000+ synthetic records)
+- Read-only collection used for browsing and quiz
 
-attempts  
-- Stores user attempt history  
-- Full CRUD supported  
+savedQuestions
+
+- Stores user-saved questions
+- Full CRUD supported
+
+attempts
+
+- Stores user attempt history
+- Full CRUD supported
 
 ---
 
@@ -93,60 +96,64 @@ attempts
 
 GET /api/questions  
 GET /api/questions/random  
-GET /api/questions/meta  
+GET /api/questions/meta
 
 ### Saved Questions (Full CRUD)
 
 GET /api/saved-questions  
 POST /api/saved-questions  
 PUT /api/saved-questions/:id/review  
-DELETE /api/saved-questions/:id  
+DELETE /api/saved-questions/:id
 
 ### Attempts (Full CRUD)
 
 GET /api/attempts  
 POST /api/attempts  
 PUT /api/attempts/:id  
-DELETE /api/attempts/:id  
+DELETE /api/attempts/:id
 
 ---
 
 ## Tech Stack
 
-Frontend  
-- React (Hooks)  
-- React Router  
-- Vite  
-- Bootstrap  
-- PropTypes  
-- CSS Modules  
+Frontend
 
-Backend  
-- Node.js  
-- Express  
+- React (Hooks)
+- React Router
+- Vite
+- Bootstrap
+- PropTypes
+- CSS Modules
 
-Database  
-- MongoDB (native driver)  
+Backend
 
-Other  
-- Fetch API  
-- ESLint  
-- Prettier  
+- Node.js
+- Express
+
+Database
+
+- MongoDB (native driver)
+
+Other
+
+- Fetch API
+- ESLint
+- Prettier
 
 ---
 
 ## Project Structure
 
 client/  
-  src/  
-    components/  
-    pages/  
-    services/  
+ src/  
+ components/  
+ pages/  
+ services/
 
 server/  
-  routes/  
-  config/  
-  seedQuestions.js  
+ routes/  
+ config/  
+ seedQuestions.js
 
 ---
 
@@ -154,86 +161,86 @@ server/
 
 ### Prerequisites
 
-- Node.js  
-- MongoDB  
+- Node.js
+- MongoDB
 
 ---
 
 ### Backend Setup
 
 cd server  
-npm install  
+npm install
 
 Create .env file:
 
 MONGO_URI="your-mongodb-connection-string"  
-PORT=4000  
+PORT=4000
 
 Run:
 
-node server.js  
+node server.js
 
 ---
 
 ### Seed Database
 
 cd server  
-node seedQuestions.js  
+node seedQuestions.js
 
 ---
 
 ### Frontend Setup
 
 cd client  
-npm install  
+npm install
 
 Run:
 
-npm run dev  
+npm run dev
 
 ---
 
 ## Code Quality
 
 ESLint  
-npx eslint .  
+npx eslint .
 
 Prettier  
-npx prettier --write .  
+npx prettier --write .
 
 ---
 
 ## User Personas
 
 Busy commuter (Alex, 24)  
-Needs quick practice sessions  
+Needs quick practice sessions
 
 First-time driver (Mei, 17)  
-Needs repetition and mistake tracking  
+Needs repetition and mistake tracking
 
 Test retaker (Jordan, 31)  
-Wants to track improvement  
+Wants to track improvement
 
 ---
 
 ## User Stories
 
-- Browse and filter questions  
-- Practice random questions  
-- Save favorites  
-- Track mistakes  
-- View attempt history  
-- Mark reviewed questions  
+- Browse and filter questions
+- Practice random questions
+- Save favorites
+- Track mistakes
+- View attempt history
+- Mark reviewed questions
 
 ---
 
 ## Accessibility
 
-- Semantic HTML structure  
-- Keyboard navigation supported  
-- Accessible form labels  
-- High contrast UI  
-- Lighthouse Accessibility Score: 100  
+- Semantic HTML structure
+- Keyboard navigation supported
+- Accessible form labels
+- High contrast UI
+- Lighthouse Accessibility Score: 100
 
 ---
 

@@ -57,7 +57,9 @@ router.put("/:id", async (req, res) => {
 
     const updateFields = {
       ...(req.body.userId !== undefined && { userId: req.body.userId }),
-      ...(req.body.questionId !== undefined && { questionId: req.body.questionId }),
+      ...(req.body.questionId !== undefined && {
+        questionId: req.body.questionId,
+      }),
       ...(req.body.questionText !== undefined && {
         questionText: req.body.questionText,
       }),
@@ -67,7 +69,9 @@ router.put("/:id", async (req, res) => {
       ...(req.body.correctAnswer !== undefined && {
         correctAnswer: req.body.correctAnswer,
       }),
-      ...(req.body.isCorrect !== undefined && { isCorrect: req.body.isCorrect }),
+      ...(req.body.isCorrect !== undefined && {
+        isCorrect: req.body.isCorrect,
+      }),
       ...(req.body.topic !== undefined && { topic: req.body.topic }),
       ...(req.body.difficulty !== undefined && {
         difficulty: req.body.difficulty,

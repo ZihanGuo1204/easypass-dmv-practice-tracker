@@ -195,7 +195,9 @@ function QuizPage() {
                 <div className="d-flex gap-2 flex-wrap">
                   <button
                     className={
-                      isFavorited ? "btn btn-warning" : "btn btn-outline-warning"
+                      isFavorited
+                        ? "btn btn-warning"
+                        : "btn btn-outline-warning"
                     }
                     onClick={handleAddToFavorite}
                     disabled={isFavorited}
@@ -254,7 +256,8 @@ function QuizPage() {
                     <>
                       <p className="text-danger mb-2">❌ Incorrect.</p>
                       <p className="text-success mb-0">
-                        Correct answer: <strong>{question.correctAnswer}</strong>
+                        Correct answer:{" "}
+                        <strong>{question.correctAnswer}</strong>
                       </p>
                     </>
                   )}
@@ -262,7 +265,9 @@ function QuizPage() {
               )}
 
               {actionMessage && (
-                <div className="alert alert-info mt-3 mb-0">{actionMessage}</div>
+                <div className="alert alert-info mt-3 mb-0">
+                  {actionMessage}
+                </div>
               )}
 
               <button

@@ -219,10 +219,7 @@ function QuestionBrowserPage() {
               </div>
 
               <div className="col-6 col-md-2">
-                <label
-                  htmlFor="difficulty-select"
-                  className="form-label mb-1"
-                >
+                <label htmlFor="difficulty-select" className="form-label mb-1">
                   Difficulty
                 </label>
                 <select

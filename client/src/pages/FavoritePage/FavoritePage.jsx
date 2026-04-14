@@ -53,7 +53,9 @@ function FavoritePage() {
   }
 
   if (errorMessage) {
-    return <div className={`container mt-4 ${styles.errorText}`}>{errorMessage}</div>;
+    return (
+      <div className={`container mt-4 ${styles.errorText}`}>{errorMessage}</div>
+    );
   }
 
   return (

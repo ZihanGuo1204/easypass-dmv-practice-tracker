@@ -24,17 +24,14 @@ function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
             <strong>Reviewed:</strong>{" "}
             <span
               className={
-                question.isReviewed
-                  ? styles.reviewedYes
-                  : styles.reviewedNo
+                question.isReviewed ? styles.reviewedYes : styles.reviewedNo
               }
             >
               {question.isReviewed ? "Yes" : "No"}
             </span>
           </p>
           <p>
-            <strong>Note:</strong>{" "}
-            {question.personalNote || "No note yet"}
+            <strong>Note:</strong> {question.personalNote || "No note yet"}
           </p>
         </div>
 
