@@ -132,6 +132,73 @@ The following screenshots represent the actual UI design of the system and serve
 
 ---
 
+## Authentication Design
+
+In the final iteration of this project, authentication was added using Passport.js (Local Strategy) to support user accounts and session management.
+
+### Key Features
+
+- Users can register and create an account
+- Users can log in and log out securely
+- Session-based authentication using express-session
+- Session data is stored in MongoDB using connect-mongo (persistent storage)
+
+### Design Decisions
+
+- A simple username/password system was chosen for usability and simplicity
+- Session-based authentication was preferred over token-based (JWT) to align with course requirements
+- MongoDB-backed sessions ensure scalability compared to in-memory storage
+
+### Impact
+
+- Enables personalized data (favorites, mistakes, history per user)
+- Improves realism of the application (closer to production systems)
+- Addresses previous feedback where authentication was missing
+
+---
+
 ## Conclusion
 
 This system focuses on improving learning efficiency through tracking and reviewing, making it more effective than traditional quiz apps.
+
+---
+
+## Usability Improvements (Iteration)
+
+Based on usability testing and iteration goals, several improvements were made to enhance user experience:
+
+### Navigation Improvements
+
+- Added clear navigation bar with labeled sections
+- Highlighted active page for better orientation
+
+### Feedback and Interaction
+
+- Immediate feedback in quiz mode (correct/incorrect)
+- Clear visual indicators (colors for correctness)
+- Disabled buttons when actions are not allowed
+
+### Layout and Clarity
+
+- Improved spacing and alignment across pages
+- Grouped related information (question, metadata, answers)
+- Reduced clutter in forms and lists
+
+### Accessibility Enhancements
+
+- Added "Skip to main content" link for keyboard users
+- Improved semantic HTML structure
+- Ensured buttons use proper `<button>` elements instead of divs
+
+### Result
+
+These changes made the application easier to navigate, reduced confusion, and improved task completion speed for users.
+
+---
+
+## Future Improvements
+
+- Add advanced analytics (progress charts)
+- Improve mobile responsiveness
+- Add multi-user support with roles
+- Enhance UI design with a more consistent visual theme
