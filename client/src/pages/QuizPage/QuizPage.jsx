@@ -68,7 +68,6 @@ function QuizPage() {
 
     try {
       await createAttempt({
-        userId: "demo-user-1",
         questionId: question.questionId,
         questionText: question.questionText,
         selectedAnswer: option,
@@ -87,15 +86,16 @@ function QuizPage() {
 
     try {
       const payload = {
-        userId: "demo-user-1",
         questionId: question.questionId,
         questionText: question.questionText,
         topic: question.topic,
         difficulty: question.difficulty,
+        correctAnswer: question.correctAnswer,
         source: "favorite",
         isFavorite: true,
         isReviewed: false,
         personalNote: "Added from quiz page.",
+        savedAt: new Date().toISOString(),
       };
 
       await createSavedQuestion(payload);
@@ -113,15 +113,16 @@ function QuizPage() {
 
     try {
       const payload = {
-        userId: "demo-user-1",
         questionId: question.questionId,
         questionText: question.questionText,
         topic: question.topic,
         difficulty: question.difficulty,
+        correctAnswer: question.correctAnswer,
         source: "mistake",
         isFavorite: false,
         isReviewed: false,
         personalNote: "Added from quiz page.",
+        savedAt: new Date().toISOString(),
       };
 
       await createSavedQuestion(payload);
@@ -171,7 +172,7 @@ function QuizPage() {
                 </div>
 
                 <button
-                  className="btn btn-outline-secondary"
+                  className="btn btn-warning"
                   onClick={handleRestartQuiz}
                   type="button"
                 >

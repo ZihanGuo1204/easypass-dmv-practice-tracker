@@ -50,21 +50,15 @@ function HistoryPage() {
     }
   }
 
-  const demoUserAttempts = useMemo(
-    () =>
-      attempts.filter((a) => (a?.userId || "demo-user-1") === "demo-user-1"),
-    [attempts]
-  );
-
   const stats = useMemo(() => {
-    const total = demoUserAttempts.length;
-    const correct = demoUserAttempts.reduce(
+    const total = attempts.length;
+    const correct = attempts.reduce(
       (acc, a) => acc + (a?.isCorrect ? 1 : 0),
       0
     );
     const accuracy = total === 0 ? 0 : Math.round((correct / total) * 100);
     return { total, correct, accuracy };
-  }, [demoUserAttempts]);
+  }, [attempts]);
 
   return (
     <div className={`container ${styles.page}`}>
@@ -93,15 +87,15 @@ function HistoryPage() {
             <div className="alert alert-danger mb-0">{error}</div>
           )}
 
-          {!loading && !error && demoUserAttempts.length === 0 && (
+          {!loading && !error && attempts.length === 0 && (
             <div className={`card p-4 text-center ${styles.emptyState}`}>
               No attempts yet. Try the Quiz tab and answer a few questions.
             </div>
           )}
 
-          {!loading && !error && demoUserAttempts.length > 0 && (
+          {!loading && !error && attempts.length > 0 && (
             <div className="d-grid gap-3">
-              {demoUserAttempts.map((a) => (
+              {attempts.map((a) => (
                 <div
                   key={
                     a?._id ||

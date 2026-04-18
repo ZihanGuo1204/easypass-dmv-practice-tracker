@@ -3,5 +3,9 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react": "^7.37.5",
     "prettier": "^3.8.1"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   }
 }

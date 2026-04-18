@@ -33,6 +33,18 @@ function SavedQuestionCard({ question, onDelete, onMarkReviewed }) {
           <p>
             <strong>Note:</strong> {question.personalNote || "No note yet"}
           </p>
+          <p>
+            <strong>Correct Answer:</strong>{" "}
+            {question.correctAnswer ? (
+              <span className={styles.correctAnswerText}>
+                {question.correctAnswer}
+              </span>
+            ) : (
+              <span className={styles.missingAnswerText}>
+                Not available for older saved items
+              </span>
+            )}
+          </p>
         </div>
 
         <div className={styles.actions}>
@@ -67,6 +79,7 @@ SavedQuestionCard.propTypes = {
     source: PropTypes.string,
     isReviewed: PropTypes.bool,
     personalNote: PropTypes.string,
+    correctAnswer: PropTypes.string,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
   onMarkReviewed: PropTypes.func.isRequired,

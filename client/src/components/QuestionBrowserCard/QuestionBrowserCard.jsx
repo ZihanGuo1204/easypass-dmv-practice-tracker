@@ -8,6 +8,8 @@ function QuestionBrowserCard({
   onSelectAnswer,
   onCheckAnswer,
 }) {
+  const canCheckAnswer = Boolean(selectedAnswer) && !checked;
+
   return (
     <div className={`card ${styles.card}`}>
       <div className="card-body">
@@ -77,9 +79,9 @@ function QuestionBrowserCard({
             <div className="mt-3 d-flex gap-2 flex-wrap align-items-center">
               <button
                 type="button"
-                className="btn btn-outline-primary"
+                className={canCheckAnswer ? "btn btn-primary" : "btn btn-primary"}
                 onClick={onCheckAnswer}
-                disabled={!selectedAnswer || checked}
+                disabled={!canCheckAnswer}
               >
                 Check Answer
               </button>

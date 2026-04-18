@@ -6,6 +6,7 @@ export async function createAttempt(attemptData) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(attemptData),
     });
 
@@ -20,10 +21,12 @@ export async function createAttempt(attemptData) {
   }
 }
 
-// READ: get all attempts
+// READ: get all attempts for the current logged-in user
 export async function getAttempts() {
   try {
-    const response = await fetch("/api/attempts");
+    const response = await fetch("/api/attempts", {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch attempts");
@@ -44,6 +47,7 @@ export async function updateAttempt(id, updatedData) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(updatedData),
     });
 
@@ -63,6 +67,7 @@ export async function deleteAttempt(id) {
   try {
     const response = await fetch(`/api/attempts/${id}`, {
       method: "DELETE",
+      credentials: "include",
     });
 
     if (!response.ok) {

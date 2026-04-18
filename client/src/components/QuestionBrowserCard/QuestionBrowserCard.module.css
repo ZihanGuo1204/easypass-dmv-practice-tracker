@@ -21,6 +21,17 @@
   border-radius: 8px;
 }
 
+.answerButton:hover:not(:disabled) {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-color: #0d6efd;
+  transition: all 0.2s ease;
+}
+
+.answerButton:disabled {
+  cursor: not-allowed;
+}
+
 .feedback {
   font-weight: 600;
 }

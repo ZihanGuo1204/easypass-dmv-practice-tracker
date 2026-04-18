@@ -2,15 +2,16 @@ const express = require("express");
 const { ObjectId } = require("mongodb");
 const router = express.Router();
 const connectDB = require("../config/db");
+const { ensureAuthenticated } = require("../middleware/auth");
 
-// CREATE a new attempt
-router.post("/", async (req, res) => {
+// CREATE a new attempt for the current logged-in user
+router.post("/", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("attempts");
 
     const newAttempt = {
-      userId: req.body.userId || "demo-user-1",
+      userId: req.user.id,
       questionId: req.body.questionId,
       questionText: req.body.questionText,
       selectedAnswer: req.body.selectedAnswer,
@@ -33,13 +34,16 @@ router.post("/", async (req, res) => {
   }
 });
 
-// READ all attempts
-router.get("/", async (req, res) => {
+// READ all attempts for the current logged-in user
+router.get("/", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("attempts");
 
-    const attempts = await collection.find().sort({ answeredAt: -1 }).toArray();
+    const attempts = await collection
+      .find({ userId: req.user.id })
+      .sort({ answeredAt: -1 })
+      .toArray();
 
     res.json(attempts);
   } catch (error) {
@@ -48,15 +52,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-// UPDATE an attempt
-router.put("/:id", async (req, res) => {
+// UPDATE an attempt belonging to the current logged-in user
+router.put("/:id", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("attempts");
     const { id } = req.params;
 
     const updateFields = {
-      ...(req.body.userId !== undefined && { userId: req.body.userId }),
       ...(req.body.questionId !== undefined && {
         questionId: req.body.questionId,
       }),
@@ -79,7 +82,10 @@ router.put("/:id", async (req, res) => {
     };
 
     const result = await collection.updateOne(
-      { _id: new ObjectId(id) },
+      {
+        _id: new ObjectId(id),
+        userId: req.user.id,
+      },
       { $set: updateFields }
     );
 
@@ -94,8 +100,8 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE an attempt
-router.delete("/:id", async (req, res) => {
+// DELETE an attempt belonging to the current logged-in user
+router.delete("/:id", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("attempts");
@@ -103,6 +109,7 @@ router.delete("/:id", async (req, res) => {
 
     const result = await collection.deleteOne({
       _id: new ObjectId(id),
+      userId: req.user.id,
     });
 
     if (result.deletedCount === 0) {

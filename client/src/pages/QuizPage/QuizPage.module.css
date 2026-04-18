@@ -45,10 +45,35 @@
   border-radius: 8px;
 }
 
+.answerButton:hover:not(:disabled) {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-color: #0d6efd;
+  transition: all 0.2s ease;
+}
+
+.answerButton:disabled {
+  cursor: not-allowed;
+}
+
 .feedback {
   font-weight: 600;
 }
 
 .nextButton {
   min-width: 160px;
+}
+
+:global(.btn-outline-primary:disabled),
+:global(.btn-primary:disabled) {
+  background-color: #cfd8dc !important;
+  color: #6c757d !important;
+  border-color: #cfd8dc !important;
+  cursor: not-allowed;
+  opacity: 1 !important;
+}
+
+:global(.btn-outline-primary:not(:disabled):hover),
+:global(.btn-primary:not(:disabled):hover) {
+  color: #ffffff !important;
 }

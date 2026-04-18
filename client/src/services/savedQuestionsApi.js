@@ -1,5 +1,7 @@
 export async function getSavedQuestions() {
-  const response = await fetch("/api/saved-questions");
+  const response = await fetch("/api/saved-questions", {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch saved questions");
@@ -14,6 +16,7 @@ export async function createSavedQuestion(newQuestion) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify(newQuestion),
   });
 
@@ -27,6 +30,7 @@ export async function createSavedQuestion(newQuestion) {
 export async function deleteSavedQuestion(id) {
   const response = await fetch(`/api/saved-questions/${id}`, {
     method: "DELETE",
+    credentials: "include",
   });
 
   if (!response.ok) {
@@ -39,6 +43,7 @@ export async function deleteSavedQuestion(id) {
 export async function markAsReviewed(id) {
   const response = await fetch(`/api/saved-questions/${id}/review`, {
     method: "PUT",
+    credentials: "include",
   });
 
   if (!response.ok) {

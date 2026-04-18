@@ -19,7 +19,12 @@ function MistakeNotebookPage() {
         const mistakesOnly = data.filter(
           (question) => question.source === "mistake"
         );
-        setMistakeQuestions(mistakesOnly);
+        const sortedMistakes = [...mistakesOnly].sort(
+          (a, b) =>
+            new Date(b.savedAt || b.updatedAt || b.createdAt || 0) -
+            new Date(a.savedAt || a.updatedAt || a.createdAt || 0)
+        );
+        setMistakeQuestions(sortedMistakes);
       } catch {
         setErrorMessage("Failed to load mistake notebook.");
       } finally {

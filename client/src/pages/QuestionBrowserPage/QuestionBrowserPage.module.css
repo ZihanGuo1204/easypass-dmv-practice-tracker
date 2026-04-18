@@ -15,7 +15,7 @@
 }
 
 .subtitle {
-  color: #6c757d;
+  color: #444;
   font-size: 0.95rem;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .summaryText {
-  color: #6c757d;
+  color: #333;
   font-size: 0.95rem;
 }
 
@@ -69,10 +69,18 @@
   color: #6c757d;
 }
 
-.subtitle {
-  color: #444;
+:global(.btn-outline-primary:disabled),
+:global(.btn-primary:disabled) {
+  background-color: #cfd8dc !important;
+  color: #6c757d !important;
+  border-color: #cfd8dc !important;
+  cursor: not-allowed;
+  opacity: 1 !important;
 }
 
-.summaryText {
-  color: #333;
+:global(.btn-outline-primary:not(:disabled):hover),
+:global(.btn-primary:not(:disabled):hover) {
+  background-color: #0d6efd;
+  color: #ffffff !important;
+  border-color: #0d6efd;
 }

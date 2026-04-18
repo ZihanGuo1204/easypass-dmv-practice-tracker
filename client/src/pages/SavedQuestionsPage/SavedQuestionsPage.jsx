@@ -16,7 +16,12 @@ function SavedQuestionsPage() {
     async function loadSavedQuestions() {
       try {
         const data = await getSavedQuestions();
-        setSavedQuestions([...data].reverse());
+        const sorted = [...data].sort(
+          (a, b) =>
+            new Date(b.savedAt || b.updatedAt || b.createdAt || 0) -
+            new Date(a.savedAt || a.updatedAt || a.createdAt || 0)
+        );
+        setSavedQuestions(sorted);
       } catch {
         setErrorMessage("Failed to load saved questions.");
       } finally {

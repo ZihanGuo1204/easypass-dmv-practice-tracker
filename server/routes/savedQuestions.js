@@ -1,77 +1,161 @@
 const express = require("express");
-const router = express.Router();
+const { ObjectId } = require("mongodb");
 const connectDB = require("../config/db");
+const { ensureAuthenticated } = require("../middleware/auth");
 
-// GET all saved questions
-router.get("/", async (req, res) => {
+const router = express.Router();
+
+// CREATE or refresh a saved question for the current logged-in user
+router.post("/", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("savedQuestions");
 
-    const questions = await collection.find().toArray();
+    const userId = req.user.id;
 
-    res.json(questions);
-  } catch (error) {
-    console.error("Error fetching saved questions:", error);
-    res.status(500).json({ message: "Failed to fetch saved questions" });
-  }
-});
+    const {
+      questionId,
+      questionText,
+      topic = "",
+      difficulty = "",
+      correctAnswer = "",
+      source = "favorite",
+      isFavorite = false,
+      isReviewed = false,
+      personalNote = "",
+    } = req.body;
 
-// POST create new saved question
-router.post("/", async (req, res) => {
-  try {
-    const db = await connectDB();
-    const collection = db.collection("savedQuestions");
+    if (!questionId || !questionText || !source) {
+      return res.status(400).json({
+        message: "questionId, questionText, and source are required",
+      });
+    }
 
-    const newQuestion = req.body;
+    const now = new Date();
 
-    const result = await collection.insertOne(newQuestion);
+    const filter = {
+      userId,
+      questionId,
+      source,
+    };
 
-    res.status(201).json({
+    const existing = await collection.findOne(filter);
+
+    if (existing) {
+      await collection.updateOne(filter, {
+        $set: {
+          questionText,
+          topic,
+          difficulty,
+          correctAnswer,
+          isFavorite,
+          personalNote,
+          updatedAt: now,
+          savedAt: now,
+        },
+      });
+
+      return res.status(200).json({
+        message: "Saved question refreshed successfully",
+        refreshed: true,
+      });
+    }
+
+    const result = await collection.insertOne({
+      userId,
+      questionId,
+      questionText,
+      topic,
+      difficulty,
+      correctAnswer,
+      source,
+      isFavorite,
+      isReviewed,
+      personalNote,
+      createdAt: now,
+      updatedAt: now,
+      savedAt: now,
+    });
+
+    return res.status(201).json({
+      message: "Saved question created successfully",
       insertedId: result.insertedId,
+      refreshed: false,
     });
   } catch (error) {
     console.error("Error creating saved question:", error);
-    res.status(500).json({ message: "Failed to create saved question" });
+    return res.status(500).json({ message: "Failed to save question" });
   }
 });
 
-// DELETE a saved question
-router.delete("/:id", async (req, res) => {
+// READ all saved questions for the current logged-in user
+router.get("/", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("savedQuestions");
 
-    const { ObjectId } = require("mongodb");
+    const savedQuestions = await collection
+      .find({ userId: req.user.id })
+      .toArray();
 
-    const result = await collection.deleteOne({
-      _id: new ObjectId(req.params.id),
-    });
-
-    res.json({ deletedCount: result.deletedCount });
+    return res.json(savedQuestions);
   } catch (error) {
-    console.error("Error deleting saved question:", error);
-    res.status(500).json({ message: "Failed to delete saved question" });
+    console.error("Error fetching saved questions:", error);
+    return res.status(500).json({ message: "Failed to fetch saved questions" });
   }
 });
 
-// PUT mark as reviewed
-router.put("/:id/review", async (req, res) => {
+// UPDATE reviewed status for the current logged-in user
+router.put("/:id/review", ensureAuthenticated, async (req, res) => {
   try {
     const db = await connectDB();
     const collection = db.collection("savedQuestions");
-
-    const { ObjectId } = require("mongodb");
+    const { id } = req.params;
 
     const result = await collection.updateOne(
-      { _id: new ObjectId(req.params.id) },
-      { $set: { isReviewed: true } }
+      {
+        _id: new ObjectId(id),
+        userId: req.user.id,
+      },
+      {
+        $set: {
+          isReviewed: true,
+          updatedAt: new Date(),
+        },
+      }
     );
 
-    res.json({ modifiedCount: result.modifiedCount });
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "Saved question not found" });
+    }
+
+    return res.json({ message: "Saved question marked as reviewed" });
   } catch (error) {
-    console.error("Error updating question:", error);
-    res.status(500).json({ message: "Failed to update question" });
+    console.error("Error updating saved question:", error);
+    return res.status(500).json({ message: "Failed to update saved question" });
+  }
+});
+
+// DELETE a saved question for the current logged-in user
+router.delete("/:id", ensureAuthenticated, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const collection = db.collection("savedQuestions");
+    const { id } = req.params;
+
+    const result = await collection.deleteOne({
+      _id: new ObjectId(id),
+      userId: req.user.id,
+    });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Saved question not found" });
+    }
+
+    return res.json({ message: "Saved question deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting saved question:", error);
+    return res.status(500).json({ message: "Failed to delete saved question" });
   }
 });
 

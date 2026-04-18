@@ -39,3 +39,13 @@
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+
+.correctAnswerText {
+  color: #198754;
+  font-weight: 600;
+}
+
+.missingAnswerText {
+  color: #6c757d;
+  font-style: italic;
+}

@@ -17,7 +17,12 @@ function FavoritePage() {
       try {
         const data = await getSavedQuestions();
         const favoritesOnly = data.filter((q) => q.source === "favorite");
-        setFavoriteQuestions([...favoritesOnly].reverse());
+        const sortedFavorites = [...favoritesOnly].sort(
+          (a, b) =>
+            new Date(b.savedAt || b.updatedAt || b.createdAt || 0) -
+            new Date(a.savedAt || a.updatedAt || a.createdAt || 0)
+        );
+        setFavoriteQuestions(sortedFavorites);
       } catch {
         setErrorMessage("Failed to load favorite questions.");
       } finally {
