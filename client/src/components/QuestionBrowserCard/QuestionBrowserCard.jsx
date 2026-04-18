@@ -83,8 +83,8 @@ function QuestionBrowserCard({
                   !selectedAnswer
                     ? "btn-secondary"
                     : checked
-                    ? "btn-success"
-                    : "btn-primary"
+                      ? "btn-success"
+                      : "btn-primary"
                 }`}
                 onClick={onCheckAnswer}
                 disabled={!canCheckAnswer}
