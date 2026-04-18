@@ -79,7 +79,13 @@ function QuestionBrowserCard({
             <div className="mt-3 d-flex gap-2 flex-wrap align-items-center">
               <button
                 type="button"
-                className={canCheckAnswer ? "btn btn-primary" : "btn btn-primary"}
+                className={`btn ${
+                  !selectedAnswer
+                    ? "btn-secondary"
+                    : checked
+                    ? "btn-success"
+                    : "btn-primary"
+                }`}
                 onClick={onCheckAnswer}
                 disabled={!canCheckAnswer}
               >

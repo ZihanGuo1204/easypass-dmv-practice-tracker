@@ -84,3 +84,11 @@
   color: #ffffff !important;
   border-color: #0d6efd;
 }
+
+:global(.btn-secondary:disabled) {
+  background-color: #adb5bd !important;
+  color: #ffffff !important;
+  border-color: #adb5bd !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+}
