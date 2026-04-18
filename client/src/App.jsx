@@ -86,7 +86,8 @@ function AppContent() {
 
       <main id="main-content" tabIndex="-1">
         <Routes>
-          <Route path="/" element={<SavedQuestionsPage />} />
+          <Route path="/" element={<QuizPage />} />
+          <Route path="/saved" element={<SavedQuestionsPage />} />
           <Route path="/mistakes" element={<MistakeNotebookPage />} />
           <Route path="/add-question" element={<AddQuestionPage />} />
           <Route path="/favorites" element={<FavoritePage />} />

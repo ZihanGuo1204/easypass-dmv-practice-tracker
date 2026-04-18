@@ -24,9 +24,9 @@ function Navbar({ user, onLogout }) {
 
       <div className="ms-auto d-flex gap-2 flex-wrap">
         <Link
-          to="/"
-          className={getNavButtonClass("/")}
-          aria-current={location.pathname === "/" ? "page" : undefined}
+          to="/saved"
+          className={getNavButtonClass("/saved")}
+          aria-current={location.pathname === "/saved" ? "page" : undefined}
         >
           Saved
         </Link>
