@@ -181,6 +181,8 @@ function QuestionBrowserPage() {
           </div>
 
           <form className={styles.filterCard} onSubmit={applyFilters}>
+            <div className={styles.filterHeader}>Search & Filter Questions</div>
+
             <div className="row g-3 align-items-end">
               <div className="col-12 col-md-5">
                 <label htmlFor="search-input" className="form-label mb-1">

@@ -92,3 +92,10 @@
   cursor: not-allowed !important;
   opacity: 1 !important;
 }
+
+.filterHeader {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.75rem;
+}
