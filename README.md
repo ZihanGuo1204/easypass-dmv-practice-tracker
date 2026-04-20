@@ -1,5 +1,7 @@
 # EasyPass DMV Practice Tracker
 
+![App Preview](assets/screenshots/thumbnail.png)
+
 **Authors**: Zihan Guo, Fanchao Yu  
 **Course**: CS5610 Web Development  
 **Project Type**: Full Stack Web Application
@@ -8,9 +10,16 @@
 
 ## Project Overview
 
-EasyPass is a client-side rendered React application built with a Node.js/Express backend and MongoDB database.
+EasyPass is a full-stack web application designed to help users prepare for the DMV written test in a structured and efficient way.
 
-The system helps users practice DMV-style questions, track learning progress, and organize study materials using features like Favorites and a Mistake Notebook.
+Unlike traditional DMV practice tools that focus only on random quizzes, EasyPass provides a **complete learning workflow**, including:
+
+- Practice (Quiz)
+- Exploration (Browse with Search & Filter)
+- Reflection (Mistake Notebook)
+- Progress Tracking (History & Accuracy)
+
+The system emphasizes **immediate feedback, personalized review, and long-term learning**.
 
 ---
 
@@ -24,46 +33,76 @@ https://easypass-dmv-practice-tracker.onrender.com
 
 ---
 
-## Demo Thumbnail
-
-![Thumbnail](assets/screenshots/thumbnail.png)
-
----
-
 ## Screenshots
 
-Saved Questions  
-![Saved Questions](assets/screenshots/saved-questions.png)
+### Login Page
 
-Quiz Mode  
-![Quiz](assets/screenshots/quiz.png)
+![Login Page](assets/screenshots/login-page.png)  
+Users can log in to access personalized features.
 
-Add Question  
-![Add Question](assets/screenshots/add-question.png)
+### Quiz Mode
 
-Question Browser  
-![Browser](assets/screenshots/question-browser.png)
+![Quiz](assets/screenshots/quiz.png)  
+Users answer one question at a time with **instant feedback**, simulating the real DMV test experience.
 
-History  
-![History](assets/screenshots/history.png)
+### Question Browser
 
-Favorites  
-![Favorites](assets/screenshots/favorites.png)
+![Browse](assets/screenshots/question-browser.png)  
+Users can **search and filter questions by topic and difficulty** using the Search & Filter panel.
 
-Mistake Notebook  
-![Mistakes](assets/screenshots/mistake-notebook.png)
+### Saved Questions
+
+![Saved Questions](assets/screenshots/saved-questions.png)  
+Users can review saved questions for later study.
+
+### Favorites Page
+
+![Favorites](assets/screenshots/favorites.png)  
+Users can save important or interesting questions for quick review.
+
+### Mistakes Page
+
+![Mistakes](assets/screenshots/mistake-notebook.png)  
+Users can revisit incorrectly answered questions and track improvement.
+
+### History Page
+
+![History](assets/screenshots/history.png)  
+Users can track performance over time, including accuracy and past attempts.
+
+### Add Question
+
+![Add Question](assets/screenshots/add-question.png)  
+Users can contribute new questions to the system.
 
 ---
 
 ## Features
 
-- Random DMV-style quiz with immediate feedback
-- Question browser with filtering and search
+- Random DMV-style quiz with **instant feedback**
+- Question browser with **Search & Filter (topic + difficulty + keyword)**
 - Save questions to Favorites
-- Mistake Notebook for incorrect questions
-- Attempt history tracking
+- Mistake Notebook for targeted review
+- Attempt history tracking with accuracy metrics
 - Mark questions as reviewed
 - Delete attempts and saved questions
+- Add new questions to the system
+
+---
+
+## Accessibility
+
+We designed EasyPass with accessibility in mind:
+
+- Full **keyboard navigation support**
+  - Tab to navigate between inputs and buttons
+  - Enter to select answers and submit actions
+- Semantic HTML structure
+- Accessible form labels
+- Clear visual feedback for actions
+- High contrast UI for readability
+
+**Lighthouse Accessibility Score: 100**
 
 ---
 
@@ -74,11 +113,11 @@ Authentication is implemented using Passport with session-based login.
 Users can:
 
 - Register a new account
-- Log in with an existing account
-- Stay signed in across page refreshes
-- Log out securely
+- Log in securely
+- Maintain session across refresh
+- Log out safely
 
-A demo account is also available for testing:
+Demo account:
 
 - Username: demo
 - Password: easypass123
@@ -89,22 +128,20 @@ A demo account is also available for testing:
 
 ### MongoDB Collections
 
-We use three collections:
-
-questions
+**questions**
 
 - Stores DMV question bank (1000+ synthetic records)
-- Read-only collection used for browsing and quiz
+- Read-only collection
 
-savedQuestions
+**savedQuestions**
 
 - Stores user-saved questions
-- Full CRUD supported
+- Full CRUD support
 
-attempts
+**attempts**
 
-- Stores user attempt history
-- Full CRUD supported
+- Stores quiz attempt history
+- Full CRUD support
 
 ---
 
@@ -116,14 +153,14 @@ GET /api/questions
 GET /api/questions/random  
 GET /api/questions/meta
 
-### Saved Questions (Full CRUD)
+### Saved Questions
 
 GET /api/saved-questions  
 POST /api/saved-questions  
 PUT /api/saved-questions/:id/review  
 DELETE /api/saved-questions/:id
 
-### Attempts (Full CRUD)
+### Attempts
 
 GET /api/attempts  
 POST /api/attempts  
@@ -134,27 +171,27 @@ DELETE /api/attempts/:id
 
 ## Tech Stack
 
-Frontend
+### Frontend
 
 - React (Hooks)
 - React Router
 - Vite
 - Bootstrap
-- PropTypes
 - CSS Modules
+- PropTypes
 
-Backend
+### Backend
 
 - Node.js
 - Express
 
-Database
+### Database
 
 - MongoDB (native driver)
 
-Other
+### Other
 
-- Fetch API
+- Fetch API (no axios)
 - ESLint
 - Prettier
 
@@ -162,16 +199,18 @@ Other
 
 ## Project Structure
 
-client/  
- src/  
- components/  
- pages/  
- services/
+```
+client/
+  src/
+    components/
+    pages/
+    services/
 
-server/  
- routes/  
- config/  
- seedQuestions.js
+server/
+  routes/
+  config/
+  seedQuestions.js
+```
 
 ---
 
@@ -186,79 +225,61 @@ server/
 
 ### Backend Setup
 
-cd server  
+```bash
+cd server
 npm install
+```
 
-Create .env file:
+Create `.env` file:
 
-MONGO_URI="your-mongodb-connection-string"  
+```
+MONGO_URI="your-mongodb-connection-string"
 PORT=4000
+```
 
 Run:
 
+```bash
 node server.js
+```
 
 ---
 
 ### Seed Database
 
-cd server  
+```bash
+cd server
 node seedQuestions.js
+```
 
 ---
 
 ### Frontend Setup
 
-cd client  
+```bash
+cd client
 npm install
-
-Run:
-
 npm run dev
-
----
-
-## Code Quality
-
-ESLint  
-npx eslint .
-
-Prettier  
-npx prettier --write .
-
----
-
-## User Personas
-
-Busy commuter (Alex, 24)  
-Needs quick practice sessions
-
-First-time driver (Mei, 17)  
-Needs repetition and mistake tracking
-
-Test retaker (Jordan, 31)  
-Wants to track improvement
+```
 
 ---
 
 ## User Stories
 
-- Browse and filter questions
-- Practice random questions
-- Save favorites
-- Track mistakes
-- View attempt history
-- Mark reviewed questions
+- Practice DMV questions interactively
+- Search and filter questions by topic/difficulty
+- Save important questions
+- Track mistakes for focused review
+- Monitor progress through history and accuracy
 
 ---
 
-## Accessibility
+## Usability Highlights
 
-- Semantic HTML structure
-- Keyboard navigation supported
-- Accessible form labels
-- High contrast UI
-- Lighthouse Accessibility Score: 100
+- Instant feedback in Quiz improves learning efficiency
+- Search & Filter enables targeted practice
+- History page helps track readiness for the test
+- Mistake Notebook supports repeated learning
 
 ---
 

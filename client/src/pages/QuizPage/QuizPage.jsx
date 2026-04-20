@@ -195,11 +195,9 @@ function QuizPage() {
 
                 <div className="d-flex gap-2 flex-wrap">
                   <button
-                    className={
-                      isFavorited
-                        ? "btn btn-warning"
-                        : "btn btn-outline-warning"
-                    }
+                    className={`${styles.favoriteButton} ${
+                      isFavorited ? styles.favoriteButtonActive : ""
+                    }`}
                     onClick={handleAddToFavorite}
                     disabled={isFavorited}
                     type="button"
