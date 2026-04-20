@@ -76,6 +76,7 @@ Users can track performance over time, including accuracy and past attempts.
 Users can contribute new questions to the system.
 
 ### Accessibility (Lighthouse)
+
 ![Lighthouse](assets/screenshots/lighthouse.png)
 
 ---
