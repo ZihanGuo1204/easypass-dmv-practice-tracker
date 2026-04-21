@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap");
-
 :root {
   --color-primary: #0d6efd;
   --color-success: #198754;
@@ -9,18 +7,6 @@
   --color-surface: #ffffff;
   --color-text: #212529;
   --color-muted: #6c757d;
-
-  --font-sans:
-    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  --font-heading: "Poppins", "Inter", system-ui, sans-serif;
-
-  --font-size-body: 1rem;
-  --font-size-sm: 0.95rem;
-  --font-size-h1: 2.2rem;
-  --font-size-h2: 1.75rem;
-  --font-size-h3: 1.35rem;
-
   --radius-md: 12px;
   --radius-sm: 8px;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
