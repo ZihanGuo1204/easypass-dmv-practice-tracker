@@ -1,7 +1,10 @@
+@import "./styles/theme.css";
+
 body {
   margin: 0;
-  background-color: #f8f9fa;
-  font-family: Arial, sans-serif;
+  background-color: var(--color-bg);
+  font-family: var(--font-sans);
+  color: var(--color-text);
 }
 
 #root {
@@ -10,4 +13,10 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
 }
