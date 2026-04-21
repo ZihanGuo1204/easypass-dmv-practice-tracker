@@ -70,8 +70,11 @@ function AddQuestionPage() {
             onSubmit={handleSubmit}
           >
             <div className="mb-3">
-              <label className="form-label">Question ID</label>
+              <label htmlFor="questionId" className="form-label">
+                Question ID
+              </label>
               <input
+                id="questionId"
                 type="text"
                 className="form-control"
                 name="questionId"
@@ -82,8 +85,11 @@ function AddQuestionPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Question Text</label>
+              <label htmlFor="questionText" className="form-label">
+                Question Text
+              </label>
               <textarea
+                id="questionText"
                 className="form-control"
                 name="questionText"
                 value={newQuestion.questionText}
@@ -93,8 +99,11 @@ function AddQuestionPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Topic</label>
+              <label htmlFor="topic" className="form-label">
+                Topic
+              </label>
               <input
+                id="topic"
                 type="text"
                 className="form-control"
                 name="topic"
@@ -104,8 +113,11 @@ function AddQuestionPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Difficulty</label>
+              <label htmlFor="difficulty" className="form-label">
+                Difficulty
+              </label>
               <select
+                id="difficulty"
                 className="form-select"
                 name="difficulty"
                 value={newQuestion.difficulty}
@@ -118,8 +130,11 @@ function AddQuestionPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Source</label>
+              <label htmlFor="source" className="form-label">
+                Source
+              </label>
               <select
+                id="source"
                 className="form-select"
                 name="source"
                 value={newQuestion.source}
@@ -131,8 +146,11 @@ function AddQuestionPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Personal Note</label>
+              <label htmlFor="personalNote" className="form-label">
+                Personal Note
+              </label>
               <input
+                id="personalNote"
                 type="text"
                 className="form-control"
                 name="personalNote"
