@@ -106,7 +106,9 @@ We designed EasyPass with accessibility in mind:
 - Clear visual feedback for actions
 - High contrast UI for readability
 
-**Lighthouse Accessibility Score: 100**
+**Lighthouse Accessibility Score: 100 (tested in Incognito mode)**
+
+> Note: All Lighthouse tests were conducted in an Incognito window to ensure consistent results without browser extensions or cached data affecting the score.
 
 ---
 
